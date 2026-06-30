@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotster — Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --park-green: #3DAA6D;
+            --park-green-dark: #2E9B5E;
+            --park-green-light: #E8F5EE;
+            --map-blue: #3B7DD8;
+            --map-blue-dark: #2F6BBF;
+            --map-blue-light: #E8F0FA;
+            --ui-dark: #1E2A38;
+            --ui-elevated: #253445;
+            --ui-glass: rgba(30, 42, 56, 0.92);
+            --ui-border: rgba(255, 255, 255, 0.1);
+            --warning: #E6A817;
+            --danger: #E05252;
+            --text-on-dark: #EEF2F6;
+            --text-muted: #9AABB8;
+            --card-radius: 20px;
+            --shadow-lg: 0 16px 48px rgba(30, 42, 56, 0.35);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            background: var(--ui-dark);
+            color: var(--text-on-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .bg-blobs {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.18;
+        }
+
+        .blob-green {
+            width: 480px; height: 480px;
+            background: var(--park-green);
+            top: -10%; right: -8%;
+        }
+
+        .blob-blue {
+            width: 420px; height: 420px;
+            background: var(--map-blue);
+            bottom: 20%; left: -10%;
+        }
+
+        .blob-green-2 {
+            width: 300px; height: 300px;
+            background: var(--park-green);
+            bottom: -5%; right: 15%;
+            opacity: 0.12;
+        }
+
+        /* ─── Top bar ─── */
+        .pres-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 1.5rem;
+            background: var(--ui-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--ui-border);
+        }
+
+        .pres-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 800;
+            font-size: 1.15rem;
+            text-decoration: none;
+            color: var(--text-on-dark);
+        }
+
+        .pres-brand-icon {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--park-green), var(--map-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .pres-nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .lang-switch {
+            display: flex;
+            background: rgba(255,255,255,0.06);
+            border-radius: 10px;
+            padding: 3px;
+            border: 1px solid var(--ui-border);
+        }
+
+        .lang-btn {
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.8rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--park-green);
+            color: #fff;
+        }
+
+        .nav-dots {
+            display: flex;
+            gap: 0.35rem;
+        }
+
+        .nav-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .nav-dot.active { background: var(--park-green); transform: scale(1.2); }
+
+        /* ─── Slides ─── */
+        .slides-wrap {
+            position: relative;
+            z-index: 1;
+            padding-top: 64px;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1.5rem 4rem;
+            scroll-margin-top: 64px;
+        }
+
+        .slide-inner {
+            width: 100%;
+            max-width: 960px;
+        }
+
+        .slide-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
+            margin-bottom: 1.25rem;
+        }
+
+        .tag-green { background: rgba(61,170,109,0.2); color: #7DD4A3; }
+        .tag-blue { background: rgba(59,125,216,0.2); color: #8BB8F0; }
+        .tag-warn { background: rgba(230,168,23,0.2); color: #F0C96A; }
+        .tag-neutral { background: rgba(255,255,255,0.08); color: var(--text-muted); }
+
+        h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        h1 .gradient {
+            background: linear-gradient(135deg, var(--park-green) 0%, var(--map-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+        }
+
+        .lead {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 640px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .hero-stat {
+            background: var(--ui-glass);
+            border: 1px solid var(--ui-border);
+            border-radius: 14px;
+            padding: 1rem 1.25rem;
+            min-width: 140px;
+        }
+
+        .hero-stat strong {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--park-green);
+        }
+
+        .hero-stat span { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* ─── Feature cards ─── */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--ui-glass);
+            border: 1px solid var(--ui-border);
+            border-radius: var(--card-radius);
+            padding: 1.35rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(61,170,109,0.35);
+        }
+
+        .feature-icon {
+            width: 48px; height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            margin-bottom: 1rem;
+        }
+
+        .icon-green { background: var(--park-green-light); color: var(--park-green-dark); }
+        .icon-blue { background: var(--map-blue-light); color: var(--map-blue-dark); }
+        .icon-warn { background: rgba(230,168,23,0.15); color: var(--warning); }
+
+        .feature-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.45rem;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        /* ─── Flow diagram ─── */
+        .flow {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .flow-step {
+            background: var(--ui-elevated);
+            border: 1px solid var(--ui-border);
+            border-radius: 12px;
+            padding: 0.65rem 1rem;
+            font-size: 0.88rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .flow-arrow {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* ─── Color legend ─── */
+        .color-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .color-chip {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .color-swatch {
+            width: 28px; height: 28px;
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.15);
+        }
+
+        /* ─── Tech stack ─── */
+        .tech-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-pill {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--ui-border);
+            border-radius: 999px;
+            padding: 0.4rem 0.9rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        /* ─── CTA footer ─── */
+        .cta-box {
+            background: linear-gradient(135deg, rgba(61,170,109,0.15), rgba(59,125,216,0.15));
+            border: 1px solid rgba(61,170,109,0.3);
+            border-radius: var(--card-radius);
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .cta-box h2 { margin-bottom: 0.5rem; }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.25rem;
+            padding: 0.85rem 1.75rem;
+            background: var(--park-green);
+            color: #fff;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .cta-btn:hover {
+            background: var(--park-green-dark);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+
+        .slide-footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--ui-border);
+        }
+
+        .lang-en { display: none; }
+        html[lang="en"] .lang-it { display: none; }
+        html[lang="en"] .lang-en { display: block; }
+        html[lang="en"] span.lang-en { display: inline; }
+        html[lang="en"] .lang-it.inline { display: none; }
+
+        @media (max-width: 640px) {
+            .nav-dots { display: none; }
+            .slide { padding: 2rem 1rem 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-blobs" aria-hidden="true">
+        <div class="blob blob-green"></div>
+        <div class="blob blob-blue"></div>
+        <div class="blob blob-green-2"></div>
+    </div>
+
+    <nav class="pres-nav">
+        <a href="#hero" class="pres-brand">
+            <span class="pres-brand-icon"><i class="bi bi-p-circle-fill"></i></span>
+            Spotster
+        </a>
+        <div class="pres-nav-actions">
+            <div class="nav-dots" id="nav-dots" aria-hidden="true"></div>
+            <div class="lang-switch">
+                <button type="button" class="lang-btn active" data-lang="it">IT</button>
+                <button type="button" class="lang-btn" data-lang="en">EN</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="slides-wrap">
+
+        <!-- HERO -->
+        <section class="slide" id="hero" data-slide="0">
+            <div class="slide-inner">
+                <span class="slide-tag tag-green"><i class="bi bi-lightning-charge-fill"></i> <span class="lang-it">Presentazione prodotto</span><span class="lang-en">Product overview</span></span>
+                <h1>
+                    <span class="lang-it">Parcheggi liberi,<br><span class="gradient">condivisi dalla community</span></span>
+                    <span class="lang-en">Free parking,<br><span class="gradient">shared by the community</span></span>
+                </h1>
+                <p class="lead lang-it">
+                    Spotster è una web app community-driven che connette chi cerca un posto auto con chi ne segnala uno libero.
+                    Mappa interattiva, annunci, chat e reputazione — tutto in un'unica esperienza mobile-first.
+                </p>
+                <p class="lead lang-en">
+                    Spotster is a community-driven web app that connects people looking for parking with those who report free spots.
+                    Interactive map, listings, chat and reputation — all in one mobile-first experience.
+                </p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <strong>2</strong>
+                        <span class="lang-it">Tipi di annuncio</span>
+                        <span class="lang-en">Listing types</span>
+                    </div>
+                    <div class="hero-stat">
+                        <strong><i class="bi bi-broadcast"></i></strong>
+                        <span class="lang-it">Aggiornamenti live</span>
+                        <span class="lang-en">Live updates</span>
+                    </div>
+                    <div class="hero-stat">
+                        <strong>IT / EN</strong>
+                        <span class="lang-it">Bilingue</span>
+                        <span class="lang-en">Bilingual</span>
+                    </div>
+                </div>
+                <div class="color-legend">
+                    <div class="color-chip">
+                        <span class="color-swatch" style="background:#3DAA6D"></span>
+                        <span class="lang-it">Verde — Posti liberi</span>
+                        <span class="lang-en">Green — Free spots</span>
+                    </div>
+                    <div class="color-chip">
+                        <span class="color-swatch" style="background:#3B7DD8"></span>
+                        <span class="lang-it">Blu — Richieste parcheggio</span>
+                        <span class="lang-en">Blue — Parking requests</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AUTH & PROFILE -->
+        <section class="slide" id="auth" data-slide="1">
+            <div class="slide-inner">
+                <span class="slide-tag tag-neutral"><i class="bi bi-person-circle"></i> <span class="lang-it">Account</span><span class="lang-en">Account</span></span>
+                <h2 class="lang-it">Accesso, profilo e reputazione</h2>
+                <h2 class="lang-en">Login, profile &amp; reputation</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon icon-green"><i class="bi bi-box-arrow-in-right"></i></div>
+                        <h3 class="lang-it">Registrazione e login</h3>
+                        <h3 class="lang-en">Sign up &amp; login</h3>
+                        <p class="lang-it">Account con username e password. <strong>Conferma email</strong> obbligatoria prima del primo accesso (reinvio disponibile). Login con <strong>JWT</strong> (access + refresh token) su <strong>ASP.NET Identity</strong>. La sessione si rinnova in automatico; logout con revoca del refresh token.</p>
+                        <p class="lang-en">Accounts with username and password. <strong>Email confirmation</strong> required before first login (resend available). <strong>JWT</strong> login (access + refresh tokens) with <strong>ASP.NET Identity</strong>. Session renews automatically; logout revokes the refresh token.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue"><i class="bi bi-camera-fill"></i></div>
+                        <h3 class="lang-it">Foto profilo</h3>
+                        <h3 class="lang-en">Profile photo</h3>
+                        <p class="lang-it">Carica, aggiorna o rimuovi la tua foto dal modale profilo. Visibile in chat, liste e ricerca utenti.</p>
+                        <p class="lang-en">Upload, update or remove your photo from the profile modal. Visible in chat, lists and user search.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-warn"><i class="bi bi-star-fill"></i></div>
+                        <h3 class="lang-it">Recensioni a stelle</h3>
+                        <h3 class="lang-en">Star reviews</h3>
+                        <p class="lang-it">Dopo uno scambio in chat su una richiesta, gli utenti possono valutarsi reciprocamente (1–5 stelle + commento).</p>
+                        <p class="lang-en">After chatting on a request, users can rate each other (1–5 stars + comment).</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-green"><i class="bi bi-search"></i></div>
+                        <h3 class="lang-it">Ricerca utenti</h3>
+                        <h3 class="lang-en">User search</h3>
+                        <p class="lang-it">Barra di ricerca in alto per trovare altri utenti e aprire il loro profilo pubblico con recensioni ricevute.</p>
+                        <p class="lang-en">Top search bar to find other users and open their public profile with received reviews.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue"><i class="bi bi-shield-lock-fill"></i></div>
+                        <h3 class="lang-it">Anti-frode e sospensioni</h3>
+                        <h3 class="lang-en">Anti-fraud &amp; suspensions</h3>
+                        <p class="lang-it">Sistema di protezione che può sospendere temporaneamente account sospetti, con banner, countdown e blocco azioni.</p>
+                        <p class="lang-en">Protection system that can temporarily suspend suspicious accounts, with banner, countdown and action blocking.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-green"><i class="bi bi-key-fill"></i></div>
+                        <h3 class="lang-it">Cambio password</h3>
+                        <h3 class="lang-en">Password change</h3>
+                        <p class="lang-it">Dal profilo personale puoi aggiornare la password in modo sicuro con conferma della password attuale.</p>
+                        <p class="lang-en">From your personal profile you can securely update your password with current password confirmation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAP & SIDEBAR -->
+        <section class="slide" id="map" data-slide="2">
+            <div class="slide-inner">
+                <span class="slide-tag tag-blue"><i class="bi bi-map-fill"></i> <span class="lang-it">Dashboard</span><span class="lang-en">Dashboard</span></span>
+                <h2 class="lang-it">Mappa interattiva e sidebar</h2>
+                <h2 class="lang-en">Interactive map &amp; sidebar</h2>
+                <p class="lead lang-it">Il cuore dell'app: una mappa Leaflet a schermo intero con la tua posizione GPS e tutti gli annunci nella zona selezionata.</p>
+                <p class="lead lang-en">The heart of the app: a full-screen Leaflet map with your GPS position and all listings in the selected area.</p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue"><i class="bi bi-bullseye"></i></div>
+                        <h3 class="lang-it">Zona visibile</h3>
+                        <h3 class="lang-en">Visible area</h3>
+                        <p class="lang-it">Combo nella sidebar per scegliere il raggio (500 m – 5 km). Lista e mappa mostrano solo ciò che rientra nel raggio attorno a te.</p>
+                        <p class="lang-en">Sidebar dropdown to choose radius (500 m – 5 km). List and map show only what's within range around you.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-green"><i class="bi bi-p-circle-fill"></i></div>
+                        <h3 class="lang-it">Tab Liberi</h3>
+                        <h3 class="lang-en">Free tab</h3>
+                        <p class="lang-it">Segnalazioni di parcheggi liberi con marker verdi, foto, punteggio di affidabilità e possibilità di votare.</p>
+                        <p class="lang-en">Free parking reports with green markers, photos, confidence score and voting.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue"><i class="bi bi-broadcast"></i></div>
+                        <h3 class="lang-it">Tab Richieste</h3>
+                        <h3 class="lang-en">Requests tab</h3>
+                        <p class="lang-it">Annunci di chi cerca parcheggio con marker blu, cerchio di raggio di ricerca e filtri per stato.</p>
+                        <p class="lang-en">Listings from people seeking parking with blue markers, search radius circle and status filters.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-warn"><i class="bi bi-funnel-fill"></i></div>
+                        <h3 class="lang-it">Filtri richieste</h3>
+                        <h3 class="lang-en">Request filters</h3>
+                        <p class="lang-it">Chip <strong>Tutte</strong>, <strong>Aperte</strong> e <strong>In trattativa</strong>. Le richieste in trattativa non mostrano il cerchio di raggio sulla mappa.</p>
+                        <p class="lang-en"><strong>All</strong>, <strong>Open</strong> and <strong>In deal</strong> chips. Requests in deal don't show the radius circle on the map.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue"><i class="bi bi-crosshair"></i></div>
+                        <h3 class="lang-it">Centra posizione</h3>
+                        <h3 class="lang-en">Locate me</h3>
+                        <p class="lang-it">Pulsante mirino sopra il FAB per centrare la mappa sulla tua posizione GPS attuale.</p>
+                        <p class="lang-en">Crosshair button above the FAB to center the map on your current GPS position.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue"><i class="bi bi-person-fill"></i></div>
+                        <h3 class="lang-it">Marker utente</h3>
+                        <h3 class="lang-en">User marker</h3>
+                        <p class="lang-it">La tua posizione è indicata da un pin blu con omino e alone pulsante, più leggibile del semplice pallino.</p>
+                        <p class="lang-en">Your position is shown with a blue pin and person icon plus a pulsing halo — clearer than a plain dot.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue"><i class="bi bi-geo-alt-fill"></i></div>
+                        <h3 class="lang-it">Abilita la posizione</h3>
+                        <h3 class="lang-en">Enable location</h3>
+                        <p class="lang-it">Al primo accesso un overlay chiede il consenso GPS per mostrare annunci vicini. Puoi anche <strong>scegliere un punto sulla mappa</strong> se preferisci non usare il GPS.</p>
+                        <p class="lang-en">On first login an overlay asks for GPS consent to show nearby listings. You can also <strong>pick a point on the map</strong> if you prefer not to use GPS.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-neutral" style="background:rgba(255,255,255,0.1);color:var(--text-on-dark);"><i class="bi bi-layout-sidebar-inset"></i></div>
+                        <h3 class="lang-it">Sidebar richiudibile</h3>
+                        <h3 class="lang-en">Collapsible sidebar</h3>
+                        <p class="lang-it">Pannello laterale con tab Liberi/Richieste: si apre e si chiude con un pulsante; lo stato resta memorizzato tra le sessioni.</p>
+                        <p class="lang-en">Side panel with Free/Requests tabs: open and close with a toggle; state is remembered across sessions.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-neutral" style="background:rgba(255,255,255,0.1);color:var(--text-on-dark);"><i class="bi bi-window-stack"></i></div>
+                        <h3 class="lang-it">Modali sulla mappa</h3>
+                        <h3 class="lang-en">Map-centered modals</h3>
+                        <p class="lang-it">Le finestre modali si aprono centrate sull'area mappa (non dietro la sidebar), con header scuro e stile coerente con l'app.</p>
+                        <p class="lang-en">Modal dialogs open centered on the map area (not behind the sidebar), with dark headers and consistent app styling.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REPORTS -->
+        <section class="slide" id="reports" data-slide="3">
+            <div class="slide-inner">
+                <span class="slide-tag tag-green"><i class="bi bi-p-circle"></i> <span class="lang-it">Segnalazioni</span><span class="lang-en">Reports</span></span>
+                <h2 class="lang-it">Segnala un parcheggio libero</h2>
+                <h2 class="lang-en">Report a free parking spot</h2>
+                <div class="flow">
+                    <span class="flow-step"><i class="bi bi-plus-lg"></i> FAB</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step"><i class="bi bi-camera"></i> <span class="lang-it">Foto</span><span class="lang-en">Photo</span></span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step"><i class="bi bi-geo-alt"></i> GPS</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-step"><i class="bi bi-send"></i> <span class="lang-it">Pubblica</span><span class="lang-en">Publish</span></span>
+                </div>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon icon-green"><i class="bi bi-camera-fill"></i></div>
+                        <h3 class="lang-it">Foto obbligatoria</h3>
+                        <h3 class="lang-en">Photo required</h3>
+                        <p class="lang-it">Scatta o carica una foto (JPG, PNG, WEBP, max 5 MB) per documentare il posto libero.</p>
+                        <p class="lang-en">Take or upload a photo (JPG, PNG, WEBP, max 5 MB) to document the free spot.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-green"><i class="bi bi-layers-fill"></i></div>
+                        <h3 class="lang-it">Aggregazione zone</h3>
+                        <h3 class="lang-en">Zone aggregation</h3>
+                        <p class="lang-it">Segnalazioni vicine nella stessa zona virtuale vengono aggregate, aumentando il contatore e rinnovando la scadenza.</p>
+                        <p class="lang-en">Nearby reports in the same virtual zone are aggregated, increasing the counter and renewing expiry.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-warn"><i class="bi bi-hand-thumbs-up-fill"></i></div>
+                        <h3 class="lang-it">Voto community</h3>
+                        <h3 class="lang-en">Community vote</h3>
+                        <p class="lang-it">Altri utenti possono confermare o smentire la segnalazione dal modale dettaglio. Il punteggio di affidabilità si aggiorna di conseguenza.</p>
+                        <p class="lang-en">Other users can confirm or dispute the report from the detail modal. The confidence score updates accordingly.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue"><i class="bi bi-card-text"></i></div>
+                        <h3 class="lang-it">Dettaglio segnalazione</h3>
+                        <h3 class="lang-en">Report detail</h3>
+                        <p class="lang-it">Tap su marker o card: foto, autore, voti, affidabilità, tempo rimanente e pulsanti Sì/No per la community.</p>
+                        <p class="lang-en">Tap marker or card: photo, author, votes, confidence, time left and Yes/No buttons for the community.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue"><i class="bi bi-clock-history"></i></div>
+                        <h3 class="lang-it">Scadenza automatica</h3>
+                        <h3 class="lang-en">Auto expiry</h3>
+                        <p class="lang-it">Le segnalazioni scadono dopo un TTL configurato. Un servizio in background rimuove quelle obsolete.</p>
+                        <p class="lang-en">Reports expire after a configured TTL. A background service removes outdated ones.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REQUESTS -->
+        <section class="slide" id="requests" data-slide="4">
+            <div class="slide-inner">
+                <span class="slide-tag tag-blue"><i class="bi bi-search"></i> <span class="lang-it">Richieste</span><span class="lang-en">Requests</span></span>
+                <h2 class="lang-it">Pubblica una richiesta di parcheggio</h2>
+                <h2 class="lang-en">Publish a parking request</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue"><i class="bi bi-geo-alt-fill"></i></div>
+                        <h3 class="lang-it">Geocoding intelligente</h3>
+                        <h3 class="lang-en">Smart geocoding</h3>
+                        <p class="lang-it">Inserisci un indirizzo con autocompletamento e suggerimenti. Anteprima del cerchio di ricerca sulla mappa prima di pubblicare.</p>
+                        <p class="lang-en">Enter an address with autocomplete and suggestions. Search circle preview on the map before publishing.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue"><i class="bi bi-arrows-angle-expand"></i></div>
+                        <h3 class="lang-it">Raggio personalizzabile</h3>
+                        <h3 class="lang-en">Customizable radius</h3>
+                        <p class="lang-it">Da 200 m a 5 km: definisci quanto sei disposto a spostarti per trovare un posto.</p>
+                        <p class="lang-en">From 200 m to 5 km: define how far you're willing to go to find a spot.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-warn"><i class="bi bi-cash-coin"></i></div>
+                        <h3 class="lang-it">Compenso facoltativo</h3>
+                        <h3 class="lang-en">Optional reward</h3>
+                        <p class="lang-it">Puoi offrire una ricompensa in euro (fino a €100) con metodi di pagamento (contanti, Satispay, PayPal, bonifico, Revolut, altro) oppure pubblicare senza compenso.</p>
+                        <p class="lang-en">You can offer a reward in euros (up to €100) with payment methods (cash, Satispay, PayPal, bank transfer, Revolut, other) or publish with no reward.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-green"><i class="bi bi-arrow-repeat"></i></div>
+                        <h3 class="lang-it">Rinnovo annuncio</h3>
+                        <h3 class="lang-en">Listing renewal</h3>
+                        <p class="lang-it">Il proprietario può rinnovare la richiesta prima della scadenza per tenerla attiva più a lungo.</p>
+                        <p class="lang-en">The owner can renew the request before expiry to keep it active longer.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-green"><i class="bi bi-pencil-square"></i></div>
+                        <h3 class="lang-it">Modifica e elimina</h3>
+                        <h3 class="lang-en">Edit &amp; delete</h3>
+                        <p class="lang-it">Aggiorna indirizzo, raggio, compenso e pagamenti. Elimina l'annuncio quando non ti serve più.</p>
+                        <p class="lang-en">Update address, radius, reward and payments. Delete the listing when you no longer need it.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue"><i class="bi bi-check-circle-fill"></i></div>
+                        <h3 class="lang-it">Auto-evasione</h3>
+                        <h3 class="lang-en">Auto-fulfillment</h3>
+                        <p class="lang-it">Quando qualcuno segnala un parcheggio libero vicino a una richiesta attiva, il sistema può notificare l'evasione automatica.</p>
+                        <p class="lang-en">When someone reports a free spot near an active request, the system can notify automatic fulfillment.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAT -->
+        <section class="slide" id="chat" data-slide="5">
+            <div class="slide-inner">
+                <span class="slide-tag tag-green"><i class="bi bi-chat-dots-fill"></i> <span class="lang-it">Comunicazione</span><span class="lang-en">Communication</span></span>
+                <h2 class="lang-it">Chat integrata per ogni richiesta</h2>
+                <h2 class="lang-en">Built-in chat for every request</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue"><i class="bi bi-chat-left-text-fill"></i></div>
+                        <h3 class="lang-it">Messaggi testuali</h3>
+                        <h3 class="lang-en">Text messages</h3>
+                        <p class="lang-it">Chi risponde a una richiesta può chattare con il proprietario. Bolle stile messenger con timestamp e distinzione inviati/ricevuti.</p>
+                        <p class="lang-en">Anyone responding to a request can chat with the owner. Messenger-style bubbles with timestamps and sent/received distinction.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-green"><i class="bi bi-geo-fill"></i></div>
+                        <h3 class="lang-it">Condivisione posizione</h3>
+                        <h3 class="lang-en">Location sharing</h3>
+                        <p class="lang-it">Pulsante mirino accanto a Invia per condividere le coordinate GPS. Il destinatario può localizzare il punto sulla mappa con una bandierina dedicata.</p>
+                        <p class="lang-en">Crosshair button next to Send to share GPS coordinates. The recipient can locate the point on the map with a dedicated flag marker.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue"><i class="bi bi-image-fill"></i></div>
+                        <h3 class="lang-it">Invio foto</h3>
+                        <h3 class="lang-en">Photo sharing</h3>
+                        <p class="lang-it">Carica immagini direttamente in chat. Anteprima nella bolla, apertura a schermo intero al tap.</p>
+                        <p class="lang-en">Upload images directly in chat. Preview in the bubble, full-screen on tap.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-warn"><i class="bi bi-people-fill"></i></div>
+                        <h3 class="lang-it">Multi-conversazione</h3>
+                        <h3 class="lang-en">Multi-conversation</h3>
+                        <p class="lang-it">Il proprietario vede tutti i thread in una sidebar compatta. Badge di stato per trattativa attiva e conversazioni chiuse agli altri utenti.</p>
+                        <p class="lang-en">The owner sees all threads in a compact sidebar. Status badges for active deals and conversations closed to other users.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-green"><i class="bi bi-handshake-fill"></i></div>
+                        <h3 class="lang-it">In trattativa</h3>
+                        <h3 class="lang-en">In deal</h3>
+                        <p class="lang-it">Solo il proprietario può segnare una richiesta "in trattativa" con un utente. Gli altri interlocutori non possono più scrivere; lo stato si aggiorna in tempo reale.</p>
+                        <p class="lang-en">Only the owner can mark a request "in deal" with one user. Other chat partners can no longer write; status updates in real time.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-warn"><i class="bi bi-slash-circle-fill"></i></div>
+                        <h3 class="lang-it">Blocco e sblocco</h3>
+                        <h3 class="lang-en">Block &amp; unblock</h3>
+                        <p class="lang-it">Il proprietario può bloccare un utente dalla chat e sbloccarlo in seguito. Gli utenti bloccati non possono inviare messaggi.</p>
+                        <p class="lang-en">The owner can block a user from chat and unblock them later. Blocked users cannot send messages.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue"><i class="bi bi-aspect-ratio"></i></div>
+                        <h3 class="lang-it">Modale chat ampia</h3>
+                        <h3 class="lang-en">Spacious chat modal</h3>
+                        <p class="lang-it">Finestra chat alta e proporzionata allo schermo, con area messaggi ampia e barra di input compatta (testo, mirino, foto, invio).</p>
+                        <p class="lang-en">Tall, screen-proportional chat window with a large message area and compact input bar (text, crosshair, photo, send).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REALTIME & TECH -->
+        <section class="slide" id="tech" data-slide="6">
+            <div class="slide-inner">
+                <span class="slide-tag tag-neutral"><i class="bi bi-cpu-fill"></i> <span class="lang-it">Tecnologia</span><span class="lang-en">Technology</span></span>
+                <h2 class="lang-it">Tempo reale e architettura</h2>
+                <h2 class="lang-en">Real-time &amp; architecture</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon icon-green"><i class="bi bi-broadcast-pin"></i></div>
+                        <h3 class="lang-it">SignalR live</h3>
+                        <h3 class="lang-en">SignalR live</h3>
+                        <p class="lang-it">Nuove segnalazioni, aggiornamenti e richieste arrivano in tempo reale senza ricaricare la pagina. Hub <code>/hubs/parking</code> con JWT: ogni client riceve solo gli eventi della <strong>zona mappa</strong> visibile; la chat è per <strong>gruppo richiesta</strong>.</p>
+                        <p class="lang-en">New reports, updates and requests arrive in real time without reloading. <code>/hubs/parking</code> with JWT: each client receives only events for the visible <strong>map grid</strong>; chat is scoped per <strong>request group</strong>.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue"><i class="bi bi-database-fill"></i></div>
+                        <h3 class="lang-it">Backend robusto</h3>
+                        <h3 class="lang-en">Robust backend</h3>
+                        <p class="lang-it">ASP.NET Core 8, EF Core, SQL Server con query <strong>spatial</strong> (<code>geography</code>), ASP.NET Identity. Cache distribuita (Redis opzionale), rate limiting API e pooling connessioni DB.</p>
+                        <p class="lang-en">ASP.NET Core 8, EF Core, SQL Server with <strong>spatial</strong> queries (<code>geography</code>), ASP.NET Identity. Distributed cache (optional Redis), API rate limiting and DB connection pooling.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-warn"><i class="bi bi-shield-check"></i></div>
+                        <h3 class="lang-it">Sicurezza</h3>
+                        <h3 class="lang-en">Security</h3>
+                        <p class="lang-it">Autenticazione <strong>JWT</strong> (access + refresh), anti-frode, rate limit su auth/geocoding/scritture. Foto su disco locale o <strong>Azure Blob</strong>; pronto per deploy multi-istanza con Redis.</p>
+                        <p class="lang-en"><strong>JWT</strong> authentication (access + refresh), anti-fraud, rate limits on auth/geocoding/writes. Photos on local disk or <strong>Azure Blob</strong>; multi-instance ready with Redis.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-green"><i class="bi bi-phone-fill"></i></div>
+                        <h3 class="lang-it">Mobile-first</h3>
+                        <h3 class="lang-en">Mobile-first</h3>
+                        <p class="lang-it">UI responsive con sidebar, FAB, pulsante localizzazione e modali touch-friendly centrate sulla mappa. Font Plus Jakarta Sans e palette verde/blu distintiva.</p>
+                        <p class="lang-en">Responsive UI with sidebar, FAB, locate button and touch-friendly modals centered on the map. Plus Jakarta Sans font and distinctive green/blue palette.</p>
+                    </div>
+                </div>
+                <div class="tech-pills">
+                    <span class="tech-pill">ASP.NET Core 8</span>
+                    <span class="tech-pill">ASP.NET Identity</span>
+                    <span class="tech-pill">JWT</span>
+                    <span class="tech-pill">Entity Framework Core</span>
+                    <span class="tech-pill">SQL Server</span>
+                    <span class="tech-pill">SQL Server Spatial</span>
+                    <span class="tech-pill">SignalR</span>
+                    <span class="tech-pill">Redis</span>
+                    <span class="tech-pill">Azure Blob</span>
+                    <span class="tech-pill">Rate limiting</span>
+                    <span class="tech-pill">Leaflet</span>
+                    <span class="tech-pill">Bootstrap 5</span>
+                    <span class="tech-pill">Vanilla JS</span>
+                    <span class="tech-pill">i18n IT/EN</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="slide" id="cta" data-slide="7">
+            <div class="slide-inner">
+                <div class="cta-box">
+                    <h2 class="lang-it">Pronto a provare Spotster?</h2>
+                    <h2 class="lang-en">Ready to try Spotster?</h2>
+                    <p class="lang-it" style="color:var(--text-muted);max-width:480px;margin:0 auto;">
+                        Avvia l'applicazione, registrati e inizia a segnalare o cercare parcheggi nella tua zona.
+                    </p>
+                    <p class="lang-en" style="color:var(--text-muted);max-width:480px;margin:0 auto;">
+                        Launch the app, sign up and start reporting or searching for parking in your area.
+                    </p>
+                    <a href="/" class="cta-btn">
+                        <i class="bi bi-box-arrow-up-right"></i>
+                        <span class="lang-it">Apri l'app</span>
+                        <span class="lang-en">Open the app</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="slide-footer">
+        <span class="lang-it">Spotster © 2026 — Presentazione prodotto</span>
+        <span class="lang-en">Spotster © 2026 — Product presentation</span>
+    </footer>
+
+    <script>
+        (function () {
+            const slides = document.querySelectorAll('.slide[data-slide]');
+            const dotsContainer = document.getElementById('nav-dots');
+            const langBtns = document.querySelectorAll('.lang-btn');
+
+            slides.forEach((slide, i) => {
+                const dot = document.createElement('button');
+                dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+                dot.addEventListener('click', () => {
+                    slide.scrollIntoView({ behavior: 'smooth' });
+                });
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = dotsContainer.querySelectorAll('.nav-dot');
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const idx = entry.target.getAttribute('data-slide');
+                        dots.forEach((d, i) => d.classList.toggle('active', i == idx));
+                    }
+                });
+            }, { threshold: 0.4 });
+
+            slides.forEach(s => observer.observe(s));
+
+            langBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.getAttribute('data-lang');
+                    document.documentElement.lang = lang;
+                    langBtns.forEach(b => b.classList.toggle('active', b === btn));
+                    document.title = lang === 'it'
+                        ? 'Spotster — Presentazione'
+                        : 'Spotster — Presentation';
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

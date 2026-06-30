@@ -1,0 +1,964 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App_Title" xml:space="preserve">
+    <value>Spotster</value>
+  </data>
+  <data name="App_Subtitle" xml:space="preserve">
+    <value>Free parking, shared by the community</value>
+  </data>
+  <data name="Auth_Login" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="Auth_Register" xml:space="preserve">
+    <value>Sign up</value>
+  </data>
+  <data name="Auth_Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Auth_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Auth_LoginBtn" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="Auth_RegisterBtn" xml:space="preserve">
+    <value>Create account</value>
+  </data>
+  <data name="Auth_FirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="Auth_LastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="Auth_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Auth_DateOfBirth" xml:space="preserve">
+    <value>Date of birth</value>
+  </data>
+  <data name="Auth_ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="Auth_RegisterPending" xml:space="preserve">
+    <value>Registration complete. Check your email and click the link to activate your account.</value>
+  </data>
+  <data name="Auth_EmailConfirmed" xml:space="preserve">
+    <value>Email confirmed successfully. You can now log in.</value>
+  </data>
+  <data name="Auth_EmailConfirmFailed" xml:space="preserve">
+    <value>Invalid or expired confirmation link. Request a new email.</value>
+  </data>
+  <data name="Auth_ResendConfirmation" xml:space="preserve">
+    <value>Resend confirmation email</value>
+  </data>
+  <data name="Auth_ResendConfirmationDone" xml:space="preserve">
+    <value>If the address is registered and not yet confirmed, you will receive a new email.</value>
+  </data>
+  <data name="Auth_PasswordMismatch" xml:space="preserve">
+    <value>Passwords do not match.</value>
+  </data>
+  <data name="Top_LogoutTitle" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="Top_ReviewStarsTitle" xml:space="preserve">
+    <value>Stars from ratings</value>
+  </data>
+  <data name="Lang_IT" xml:space="preserve">
+    <value>IT</value>
+  </data>
+  <data name="Lang_EN" xml:space="preserve">
+    <value>EN</value>
+  </data>
+  <data name="Map_ViewRadius" xml:space="preserve">
+    <value>Visible area</value>
+  </data>
+  <data name="Map_LocateMe" xml:space="preserve">
+    <value>Center on my location</value>
+  </data>
+  <data name="Map_GeoPrompt_Title" xml:space="preserve">
+    <value>Enable location</value>
+  </data>
+  <data name="Map_GeoPrompt_Body" xml:space="preserve">
+    <value>To see nearby reports and listings, allow access to your location.</value>
+  </data>
+  <data name="Map_GeoPrompt_Enable" xml:space="preserve">
+    <value>Allow location</value>
+  </data>
+  <data name="Map_GeoPrompt_Loading" xml:space="preserve">
+    <value>Locating...</value>
+  </data>
+  <data name="Map_GeoPrompt_Insecure" xml:space="preserve">
+    <value>Location only works on https or http://localhost. Open the app via localhost, not a LAN IP.</value>
+  </data>
+  <data name="Map_GeoPrompt_Denied" xml:space="preserve">
+    <value>Permission denied. Click the lock icon in the address bar → Location → Allow, then reload.</value>
+  </data>
+  <data name="Map_GeoPickOnMap" xml:space="preserve">
+    <value>Pick on map</value>
+  </data>
+  <data name="Map_ViewRadiusHint" xml:space="preserve">
+    <value>Show reports and listings within this radius from your position</value>
+  </data>
+  <data name="Fab_Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Fab_Report" xml:space="preserve">
+    <value>Report free spot</value>
+  </data>
+  <data name="Fab_Search" xml:space="preserve">
+    <value>Parking request</value>
+  </data>
+  <data name="Sidebar_ListingsTitle" xml:space="preserve">
+    <value>Nearby</value>
+  </data>
+  <data name="Sidebar_Close" xml:space="preserve">
+    <value>Close panel</value>
+  </data>
+  <data name="Sidebar_Open" xml:space="preserve">
+    <value>Open listings</value>
+  </data>
+  <data name="Sheet_Parkings" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="Sheet_Requests" xml:space="preserve">
+    <value>Requests</value>
+  </data>
+  <data name="Modal_Report_Title" xml:space="preserve">
+    <value>Report a free parking spot</value>
+  </data>
+  <data name="Modal_Report_Desc" xml:space="preserve">
+    <value>Add a photo of the free spot to help other users.</value>
+  </data>
+  <data name="Modal_Report_Photo" xml:space="preserve">
+    <value>Take or upload a photo</value>
+  </data>
+  <data name="Modal_Report_PhotoHint" xml:space="preserve">
+    <value>JPG, PNG, WEBP — max 5 MB</value>
+  </data>
+  <data name="Modal_Report_Remove" xml:space="preserve">
+    <value>Remove photo</value>
+  </data>
+  <data name="Modal_Report_LocDetect" xml:space="preserve">
+    <value>Detecting location...</value>
+  </data>
+  <data name="Modal_Report_Send" xml:space="preserve">
+    <value>Submit report</value>
+  </data>
+  <data name="Modal_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Modal_Search_Title" xml:space="preserve">
+    <value>Search for parking nearby</value>
+  </data>
+  <data name="Modal_Search_Desc" xml:space="preserve">
+    <value>Enter an address and choose a search radius. Other users will see your request.</value>
+  </data>
+  <data name="Modal_Search_Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Modal_Search_AddressPh" xml:space="preserve">
+    <value>e.g. 1 Rome St, Milan</value>
+  </data>
+  <data name="Modal_Search_Radius" xml:space="preserve">
+    <value>Search radius</value>
+  </data>
+  <data name="Modal_Radius_200" xml:space="preserve">
+    <value>200 meters</value>
+  </data>
+  <data name="Modal_Radius_500" xml:space="preserve">
+    <value>500 meters</value>
+  </data>
+  <data name="Modal_Radius_1000" xml:space="preserve">
+    <value>1 km</value>
+  </data>
+  <data name="Modal_Radius_2000" xml:space="preserve">
+    <value>2 km</value>
+  </data>
+  <data name="Modal_Radius_3000" xml:space="preserve">
+    <value>3 km</value>
+  </data>
+  <data name="Modal_Radius_5000" xml:space="preserve">
+    <value>5 km</value>
+  </data>
+  <data name="Modal_Search_Reward" xml:space="preserve">
+    <value>Offered reward (optional)</value>
+  </data>
+  <data name="Modal_Search_RewardHint" xml:space="preserve">
+    <value>How much you are willing to pay someone who finds a spot</value>
+  </data>
+  <data name="Modal_Search_Payments" xml:space="preserve">
+    <value>Accepted payment methods</value>
+  </data>
+  <data name="Modal_Search_PaymentOtherPlaceholder" xml:space="preserve">
+    <value>e.g. Wise, meal vouchers...</value>
+  </data>
+  <data name="Modal_Search_Publish" xml:space="preserve">
+    <value>Publish request</value>
+  </data>
+  <data name="Modal_Search_EditTitle" xml:space="preserve">
+    <value>Edit your ad</value>
+  </data>
+  <data name="Modal_Search_EditDesc" xml:space="preserve">
+    <value>Update address, radius, reward and payment methods.</value>
+  </data>
+  <data name="Modal_Search_Save" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
+  <data name="Modal_Chat_Title" xml:space="preserve">
+    <value>Request messages</value>
+  </data>
+  <data name="Modal_Chat_TitleMine" xml:space="preserve">
+    <value>Messages on your listing</value>
+  </data>
+  <data name="Modal_Chat_TitleGuest" xml:space="preserve">
+    <value>Contact requester</value>
+  </data>
+  <data name="Modal_Chat_Placeholder" xml:space="preserve">
+    <value>Write a message...</value>
+  </data>
+  <data name="Modal_Chat_SelectConv" xml:space="preserve">
+    <value>Select a conversation.</value>
+  </data>
+  <data name="Modal_Chat_EmptyOwner" xml:space="preserve">
+    <value>No messages yet. Other users can write to you here.</value>
+  </data>
+  <data name="Modal_Chat_EmptyGuest" xml:space="preserve">
+    <value>Write to offer a spot or ask for details.</value>
+  </data>
+  <data name="Modal_Chat_NoMessagesYet" xml:space="preserve">
+    <value>No messages yet</value>
+  </data>
+  <data name="Modal_Chat_ThreadsHeader" xml:space="preserve">
+    <value>Conversations</value>
+  </data>
+  <data name="Modal_Chat_BlockedCantWrite" xml:space="preserve">
+    <value>You cannot write: you have been blocked on this listing.</value>
+  </data>
+  <data name="Modal_Chat_SendLocation" xml:space="preserve">
+    <value>Send your location</value>
+  </data>
+  <data name="Modal_Chat_LocationShared" xml:space="preserve">
+    <value>Shared location</value>
+  </data>
+  <data name="Modal_Chat_LocateOnMap" xml:space="preserve">
+    <value>Locate on map</value>
+  </data>
+  <data name="Modal_Chat_LocationMarker" xml:space="preserve">
+    <value>Location shared in chat</value>
+  </data>
+  <data name="Modal_Chat_RemoveLocationFlag" xml:space="preserve">
+    <value>Remove flag</value>
+  </data>
+  <data name="Chat_LocationPreview" xml:space="preserve">
+    <value>Shared location</value>
+  </data>
+  <data name="Modal_Chat_SendPhoto" xml:space="preserve">
+    <value>Send photo</value>
+  </data>
+  <data name="Modal_Chat_PhotoAlt" xml:space="preserve">
+    <value>Photo sent in chat</value>
+  </data>
+  <data name="Chat_PhotoPreview" xml:space="preserve">
+    <value>Photo</value>
+  </data>
+  <data name="Toast_ChatLocationUnavailable" xml:space="preserve">
+    <value>Location unavailable. Enable GPS and try again.</value>
+  </data>
+  <data name="Modal_Vote_Title" xml:space="preserve">
+    <value>Rate report</value>
+  </data>
+  <data name="Modal_ParkingDetail_Title" xml:space="preserve">
+    <value>Report details</value>
+  </data>
+  <data name="Modal_ParkingDetail_NoPhoto" xml:space="preserve">
+    <value>No photo attached</value>
+  </data>
+  <data name="Modal_Vote_Question" xml:space="preserve">
+    <value>Is the reported parking spot still free?</value>
+  </data>
+  <data name="Modal_Vote_Yes" xml:space="preserve">
+    <value>Yes, I confirm</value>
+  </data>
+  <data name="Modal_Vote_No" xml:space="preserve">
+    <value>No, it&apos;s taken</value>
+  </data>
+  <data name="Modal_Vote_AlreadyDone" xml:space="preserve">
+    <value>You have already voted on this report.</value>
+  </data>
+  <data name="Modal_ParkingDetail_OwnReport" xml:space="preserve">
+    <value>This is your report.</value>
+  </data>
+  <data name="List_NoRequests" xml:space="preserve">
+    <value>No active requests within {0}</value>
+  </data>
+  <data name="List_NoRequestsFiltered" xml:space="preserve">
+    <value>No requests match this filter within {0}</value>
+  </data>
+  <data name="Filter_Requests_All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Filter_Requests_Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Filter_Requests_InDeal" xml:space="preserve">
+    <value>In deal</value>
+  </data>
+  <data name="List_NoParkings" xml:space="preserve">
+    <value>No active parking spots within {0}</value>
+  </data>
+  <data name="List_MyAd" xml:space="preserve">
+    <value>Your listing</value>
+  </data>
+  <data name="List_MyReport" xml:space="preserve">
+    <value>Your report</value>
+  </data>
+  <data name="List_MsgsReceived" xml:space="preserve">
+    <value>Messages received</value>
+  </data>
+  <data name="List_ConversationsCount" xml:space="preserve">
+    <value>{0} conversations</value>
+  </data>
+  <data name="List_Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="List_OffMap" xml:space="preserve">
+    <value>Off map</value>
+  </data>
+  <data name="List_MyOffZone" xml:space="preserve">
+    <value>Outside your visible area</value>
+  </data>
+  <data name="List_Renew" xml:space="preserve">
+    <value>Renew for 1 hour</value>
+  </data>
+  <data name="Request_MarkInDeal" xml:space="preserve">
+    <value>Mark as in negotiation</value>
+  </data>
+  <data name="Request_InDealBadge" xml:space="preserve">
+    <value>In negotiation</value>
+  </data>
+  <data name="Request_InDealByYou" xml:space="preserve">
+    <value>This listing is in deal with you</value>
+  </data>
+  <data name="Request_MessagingClosedInDeal" xml:space="preserve">
+    <value>Messaging disabled: listing in deal with another user</value>
+  </data>
+  <data name="Request_ThreadDealBlocked" xml:space="preserve">
+    <value>In deal elsewhere</value>
+  </data>
+  <data name="List_EditAd" xml:space="preserve">
+    <value>Edit ad</value>
+  </data>
+  <data name="List_DelAd" xml:space="preserve">
+    <value>Delete listing</value>
+  </data>
+  <data name="List_DelReport" xml:space="preserve">
+    <value>Delete report</value>
+  </data>
+  <data name="List_LocateOnMap" xml:space="preserve">
+    <value>Locate</value>
+  </data>
+  <data name="List_PopupRemaining" xml:space="preserve">
+    <value>{0} remaining</value>
+  </data>
+  <data name="List_YourPosition" xml:space="preserve">
+    <value>Your location</value>
+  </data>
+  <data name="List_PhotoAlt" xml:space="preserve">
+    <value>Photo</value>
+  </data>
+  <data name="List_VotePhotoAlt" xml:space="preserve">
+    <value>Parking photo</value>
+  </data>
+  <data name="Time_Expired" xml:space="preserve">
+    <value>Expired</value>
+  </data>
+  <data name="Toast_GeoUnsupported" xml:space="preserve">
+    <value>Geolocation is not supported</value>
+  </data>
+  <data name="Toast_GeoDisabled" xml:space="preserve">
+    <value>Enable geolocation to use the map</value>
+  </data>
+  <data name="Toast_GeoDenied" xml:space="preserve">
+    <value>Location permission denied. Use Allow location or enable it in your browser settings.</value>
+  </data>
+  <data name="Toast_GeoAcquiring" xml:space="preserve">
+    <value>Acquiring location...</value>
+  </data>
+  <data name="Toast_GeoSuccess" xml:space="preserve">
+    <value>Location acquired</value>
+  </data>
+  <data name="Toast_GeoTimeout" xml:space="preserve">
+    <value>GPS timeout. Check that location is enabled in Windows and your browser.</value>
+  </data>
+  <data name="Toast_GeoUnavailable" xml:space="preserve">
+    <value>Location unavailable. Enable Windows Location or use Pick on map.</value>
+  </data>
+  <data name="Toast_GeoPickHint" xml:space="preserve">
+    <value>Click a point on the map to set your location.</value>
+  </data>
+  <data name="Toast_LoadRequestsError" xml:space="preserve">
+    <value>Error loading requests</value>
+  </data>
+  <data name="Toast_AdRenewed" xml:space="preserve">
+    <value>Listing renewed for 1 hour</value>
+  </data>
+  <data name="Toast_ReportDeleted" xml:space="preserve">
+    <value>Report deleted</value>
+  </data>
+  <data name="Toast_AdDeleted" xml:space="preserve">
+    <value>Listing deleted</value>
+  </data>
+  <data name="Toast_LoadPaymentsError" xml:space="preserve">
+    <value>Error loading payment methods</value>
+  </data>
+  <data name="Toast_SelectConversation" xml:space="preserve">
+    <value>Select a conversation</value>
+  </data>
+  <data name="Toast_LoadParkingsError" xml:space="preserve">
+    <value>Error loading parking spots</value>
+  </data>
+  <data name="Toast_OutOfRange" xml:space="preserve">
+    <value>Parking spot is outside the 2 km range</value>
+  </data>
+  <data name="Toast_WaitGps" xml:space="preserve">
+    <value>Waiting for GPS fix...</value>
+  </data>
+  <data name="Toast_EnterAddress" xml:space="preserve">
+    <value>Enter an address</value>
+  </data>
+  <data name="Toast_GeocodeFirst" xml:space="preserve">
+    <value>Search for an address first</value>
+  </data>
+  <data name="Toast_RewardNeedsPayment" xml:space="preserve">
+    <value>If you offer a reward, select at least one payment method</value>
+  </data>
+  <data name="Toast_OtherPaymentRequired" xml:space="preserve">
+    <value>Specify the payment method under "Other"</value>
+  </data>
+  <data name="Toast_RequestPublished" xml:space="preserve">
+    <value>Request published!</value>
+  </data>
+  <data name="Toast_RequestUpdated" xml:space="preserve">
+    <value>Ad updated!</value>
+  </data>
+  <data name="Toast_PhotoTooLarge" xml:space="preserve">
+    <value>Photo cannot exceed 5 MB</value>
+  </data>
+  <data name="Toast_LocationUnavailable" xml:space="preserve">
+    <value>Location unavailable</value>
+  </data>
+  <data name="Toast_ReportSent" xml:space="preserve">
+    <value>Parking spot reported!</value>
+  </data>
+  <data name="Toast_VoteYes" xml:space="preserve">
+    <value>Positive vote recorded</value>
+  </data>
+  <data name="Toast_VoteNo" xml:space="preserve">
+    <value>Report disputed</value>
+  </data>
+  <data name="Toast_NewReport" xml:space="preserve">
+    <value>New parking spot reported!</value>
+  </data>
+  <data name="Toast_ParkingNearRequest" xml:space="preserve">
+    <value>New parking spotted near your request: {0}</value>
+  </data>
+  <data name="Toast_RequestFulfilled" xml:space="preserve">
+    <value>Request fulfilled near: {0}</value>
+  </data>
+  <data name="Toast_RequestMarkedInDeal" xml:space="preserve">
+    <value>Listing in negotiation: 1 hour for messages and rating.</value>
+  </data>
+  <data name="Toast_RequestInDeal" xml:space="preserve">
+    <value>This listing is already in negotiation with another user.</value>
+  </data>
+  <data name="Toast_SuspiciousActivity" xml:space="preserve">
+    <value>Suspicious activity detected: {0}</value>
+  </data>
+  <data name="Toast_RealtimeError" xml:space="preserve">
+    <value>Realtime connection error</value>
+  </data>
+  <data name="Toast_NetworkError" xml:space="preserve">
+    <value>Network error</value>
+  </data>
+  <data name="Suggest_NoResults" xml:space="preserve">
+    <value>No results</value>
+  </data>
+  <data name="Confirm_DeleteReport" xml:space="preserve">
+    <value>Delete this report?</value>
+  </data>
+  <data name="Confirm_DeleteAd" xml:space="preserve">
+    <value>Delete this listing?</value>
+  </data>
+  <data name="Modal_ConfirmDelete_Title" xml:space="preserve">
+    <value>Confirm deletion</value>
+  </data>
+  <data name="Modal_ConfirmDelete_Btn" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Payment_Cash" xml:space="preserve">
+    <value>Cash</value>
+  </data>
+  <data name="Payment_Satispay" xml:space="preserve">
+    <value>Satispay</value>
+  </data>
+  <data name="Payment_Paypal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Payment_BankTransfer" xml:space="preserve">
+    <value>Bank transfer</value>
+  </data>
+  <data name="Payment_Revolut" xml:space="preserve">
+    <value>Revolut</value>
+  </data>
+  <data name="Payment_Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Error_AccountUnauthorized" xml:space="preserve">
+    <value>Account not authorized.</value>
+  </data>
+  <data name="Error_AccountUnauthorizedVote" xml:space="preserve">
+    <value>Account not authorized to vote.</value>
+  </data>
+  <data name="Error_UserNotFound" xml:space="preserve">
+    <value>User not found.</value>
+  </data>
+  <data name="Error_InvalidCoordinates" xml:space="preserve">
+    <value>Invalid coordinates.</value>
+  </data>
+  <data name="Error_InvalidRefreshToken" xml:space="preserve">
+    <value>Invalid refresh token.</value>
+  </data>
+  <data name="Error_RefreshTokenExpiredOrRevoked" xml:space="preserve">
+    <value>Refresh token expired or revoked.</value>
+  </data>
+  <data name="Error_UserNotAuthenticated" xml:space="preserve">
+    <value>User is not authenticated.</value>
+  </data>
+  <data name="Error_RewardRange" xml:space="preserve">
+    <value>Reward must be between 0 and {0} EUR.</value>
+  </data>
+  <data name="Error_RewardNeedsPayment" xml:space="preserve">
+    <value>If you offer a reward, select at least one payment method.</value>
+  </data>
+  <data name="Error_OtherPaymentEmpty" xml:space="preserve">
+    <value>Specify the payment method in the "Other" field.</value>
+  </data>
+  <data name="Error_MaxActiveRequests" xml:space="preserve">
+    <value>You already have an active listing. Delete it or wait for it to expire before publishing another.</value>
+  </data>
+  <data name="Error_DailyRequestLimit" xml:space="preserve">
+    <value>You have already published your listing for today. Try again tomorrow.</value>
+  </data>
+  <data name="Error_RequestNotFound" xml:space="preserve">
+    <value>Request not found.</value>
+  </data>
+  <data name="Error_RenewOwnOnly" xml:space="preserve">
+    <value>You can only renew your own listings.</value>
+  </data>
+  <data name="Error_UpdateRequestOwnOnly" xml:space="preserve">
+    <value>You can only edit your own ads.</value>
+  </data>
+  <data name="Error_RequestInactive" xml:space="preserve">
+    <value>The request is no longer active.</value>
+  </data>
+  <data name="Error_RequestReserved" xml:space="preserve">
+    <value>This listing is already in negotiation with another user.</value>
+  </data>
+  <data name="Error_ReserveGuestOnly" xml:space="preserve">
+    <value>Only the listing owner can mark it as in deal.</value>
+  </data>
+  <data name="Error_ReserveOwnerOnly" xml:space="preserve">
+    <value>Only the listing owner can mark it as in deal.</value>
+  </data>
+  <data name="Error_ReserveNeedsMessage" xml:space="preserve">
+    <value>Send at least one message before marking the listing in negotiation.</value>
+  </data>
+  <data name="Error_ReserveGuestRequired" xml:space="preserve">
+    <value>Select the user to mark the listing in negotiation with.</value>
+  </data>
+  <data name="Error_UnreserveOwnerOnly" xml:space="preserve">
+    <value>Only the owner can remove the in-negotiation status.</value>
+  </data>
+  <data name="Error_RequestNotReserved" xml:space="preserve">
+    <value>The listing is not in negotiation.</value>
+  </data>
+  <data name="Error_BlockGuestOwnerOnly" xml:space="preserve">
+    <value>Only the owner can block a user on this listing.</value>
+  </data>
+  <data name="Error_BlockGuestInvalid" xml:space="preserve">
+    <value>Invalid user for blocking.</value>
+  </data>
+  <data name="Error_BlockGuestNeedsThread" xml:space="preserve">
+    <value>There is no conversation with this user.</value>
+  </data>
+  <data name="Error_UnblockGuestNotBlocked" xml:space="preserve">
+    <value>This user is not blocked on this listing.</value>
+  </data>
+  <data name="Error_UserBlockedOnRequest" xml:space="preserve">
+    <value>You cannot interact with this listing: you were blocked by the owner.</value>
+  </data>
+  <data name="Request_UnmarkInDeal" xml:space="preserve">
+    <value>Remove negotiation</value>
+  </data>
+  <data name="Request_BlockUser" xml:space="preserve">
+    <value>Block user</value>
+  </data>
+  <data name="Request_UnblockUser" xml:space="preserve">
+    <value>Unblock user</value>
+  </data>
+  <data name="Request_UserBlocked" xml:space="preserve">
+    <value>User blocked on this listing</value>
+  </data>
+  <data name="Toast_RequestUnmarkedInDeal" xml:space="preserve">
+    <value>In-negotiation status removed.</value>
+  </data>
+  <data name="Toast_UserBlocked" xml:space="preserve">
+    <value>User blocked: they can no longer write or mark in negotiation.</value>
+  </data>
+  <data name="Toast_UserUnblocked" xml:space="preserve">
+    <value>User unblocked: they can write on this listing again.</value>
+  </data>
+  <data name="Error_RenewUsed" xml:space="preserve">
+    <value>You have already used the renewal for this listing.</value>
+  </data>
+  <data name="Error_DeleteRequestOwnOnly" xml:space="preserve">
+    <value>You can only delete your own listings.</value>
+  </data>
+  <data name="Error_ReportNotAllowed" xml:space="preserve">
+    <value>Report not allowed.</value>
+  </data>
+  <data name="Error_MaxActiveReports" xml:space="preserve">
+    <value>You can have at most {0} active reports. Delete a report or wait for it to expire.</value>
+  </data>
+  <data name="Error_ReportNotFound" xml:space="preserve">
+    <value>Report not found.</value>
+  </data>
+  <data name="Error_VoteNotAllowed" xml:space="preserve">
+    <value>You cannot vote on this report.</value>
+  </data>
+  <data name="Error_AlreadyVoted" xml:space="preserve">
+    <value>You have already voted on this report.</value>
+  </data>
+  <data name="Error_VoteOwnReport" xml:space="preserve">
+    <value>You cannot vote on your own report.</value>
+  </data>
+  <data name="Error_DeleteReportOwnOnly" xml:space="preserve">
+    <value>You can only delete your own reports.</value>
+  </data>
+  <data name="Error_OwnerOnlyConversations" xml:space="preserve">
+    <value>Only the creator can view conversations.</value>
+  </data>
+  <data name="Error_MessageEmpty" xml:space="preserve">
+    <value>Message cannot be empty.</value>
+  </data>
+  <data name="Error_MessageTooLong" xml:space="preserve">
+    <value>Message cannot exceed {0} characters.</value>
+  </data>
+  <data name="Error_ReplyToRequired" xml:space="preserve">
+    <value>Specify the user to reply to.</value>
+  </data>
+  <data name="Error_NoConversation" xml:space="preserve">
+    <value>No conversation with this user.</value>
+  </data>
+  <data name="Error_ThreadUserRequired" xml:space="preserve">
+    <value>Specify which user&apos;s conversation to view.</value>
+  </data>
+  <data name="Error_InvalidConversation" xml:space="preserve">
+    <value>Invalid conversation.</value>
+  </data>
+  <data name="Error_ConversationAccessDenied" xml:space="preserve">
+    <value>You cannot access this conversation.</value>
+  </data>
+  <data name="Error_AddressRequired" xml:space="preserve">
+    <value>Address is required.</value>
+  </data>
+  <data name="Error_AddressNotFound" xml:space="preserve">
+    <value>Address not found. Try adding more details.</value>
+  </data>
+  <data name="Error_GeocodingInvalid" xml:space="preserve">
+    <value>Invalid geocoding response.</value>
+  </data>
+  <data name="Error_CredentialsRequired" xml:space="preserve">
+    <value>Username and password are required.</value>
+  </data>
+  <data name="Error_PasswordTooShort" xml:space="preserve">
+    <value>Password must be at least 6 characters.</value>
+  </data>
+  <data name="Error_UsernameTaken" xml:space="preserve">
+    <value>Username already registered.</value>
+  </data>
+  <data name="Error_InvalidCredentials" xml:space="preserve">
+    <value>Invalid credentials.</value>
+  </data>
+  <data name="Error_EmailNotConfirmed" xml:space="preserve">
+    <value>You must confirm your email before logging in. Check your inbox or request a new email.</value>
+  </data>
+  <data name="Error_EmailTaken" xml:space="preserve">
+    <value>Email already registered.</value>
+  </data>
+  <data name="Error_EmailInvalid" xml:space="preserve">
+    <value>Invalid email address.</value>
+  </data>
+  <data name="Error_EmailRequired" xml:space="preserve">
+    <value>Email is required.</value>
+  </data>
+  <data name="Error_RegistrationFieldsRequired" xml:space="preserve">
+    <value>Please fill in all required registration fields.</value>
+  </data>
+  <data name="Error_InvalidDateOfBirth" xml:space="preserve">
+    <value>Invalid date of birth.</value>
+  </data>
+  <data name="Error_MinimumAge" xml:space="preserve">
+    <value>You must be at least {0} years old to register.</value>
+  </data>
+  <data name="Email_ConfirmSubject" xml:space="preserve">
+    <value>Confirm your Spotster account</value>
+  </data>
+  <data name="Email_ConfirmGreeting" xml:space="preserve">
+    <value>Hi {0},</value>
+  </data>
+  <data name="Email_ConfirmBody" xml:space="preserve">
+    <value>Thanks for signing up to Spotster. Click the button below to confirm your email address and activate your account.</value>
+  </data>
+  <data name="Email_ConfirmButton" xml:space="preserve">
+    <value>Confirm email</value>
+  </data>
+  <data name="Email_ConfirmFooter" xml:space="preserve">
+    <value>If you did not request this registration, please ignore this message.</value>
+  </data>
+  <data name="Error_AccountBanned" xml:space="preserve">
+    <value>Account banned.</value>
+  </data>
+  <data name="Error_PhotoTooLarge" xml:space="preserve">
+    <value>Photo cannot exceed 5 MB.</value>
+  </data>
+  <data name="Error_PhotoRequired" xml:space="preserve">
+    <value>Select an image.</value>
+  </data>
+  <data name="Error_PhotoUnsupportedFormat" xml:space="preserve">
+    <value>Unsupported photo format. Use JPG, PNG, or WEBP.</value>
+  </data>
+  <data name="Error_PhotoInvalidType" xml:space="preserve">
+    <value>Invalid file type.</value>
+  </data>
+  <data name="Error_ReportRateLimit" xml:space="preserve">
+    <value>Report limit reached. Try again in a few minutes.</value>
+  </data>
+  <data name="Error_ReportDeviceLimit" xml:space="preserve">
+    <value>Too many reports from this device/network.</value>
+  </data>
+  <data name="Error_GpsSuspicious" xml:space="preserve">
+    <value>Suspicious GPS movement. Reports temporarily blocked.</value>
+  </data>
+  <data name="Error_AccountSuspended" xml:space="preserve">
+    <value>Account suspended until {0} UTC.</value>
+  </data>
+  <data name="Account_Suspended_Title" xml:space="preserve">
+    <value>Account suspended — limited actions</value>
+  </data>
+  <data name="Account_Suspended_Detail" xml:space="preserve">
+    <value>You cannot publish reports or listings until {0}.</value>
+  </data>
+  <data name="Account_Suspended_CountdownLabel" xml:space="preserve">
+    <value>Remaining</value>
+  </data>
+  <data name="Account_Suspended_Badge" xml:space="preserve">
+    <value>SUSPENDED</value>
+  </data>
+  <data name="Account_Suspended_Modal_Title" xml:space="preserve">
+    <value>Your account is suspended</value>
+  </data>
+  <data name="Account_Suspended_Modal_Body" xml:space="preserve">
+    <value>Suspicious activity was detected on your account. You can still browse the map and manage your existing content, but you cannot publish new reports or listings until the suspension ends.</value>
+  </data>
+  <data name="Account_Suspended_Modal_Until" xml:space="preserve">
+    <value>Suspension active until {0}</value>
+  </data>
+  <data name="Account_Suspended_Modal_Ok" xml:space="preserve">
+    <value>Got it</value>
+  </data>
+  <data name="Account_Suspended_Toast" xml:space="preserve">
+    <value>Your account has been temporarily suspended.</value>
+  </data>
+  <data name="Account_Suspended_ActionBlocked" xml:space="preserve">
+    <value>Account suspended: you cannot perform this action right now.</value>
+  </data>
+  <data name="Profile_Title" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Profile_MyTitle" xml:space="preserve">
+    <value>My profile</value>
+  </data>
+  <data name="Profile_UserTitle" xml:space="preserve">
+    <value>{0}'s profile</value>
+  </data>
+  <data name="Profile_SearchUser" xml:space="preserve">
+    <value>Search user</value>
+  </data>
+  <data name="Profile_SearchPlaceholder" xml:space="preserve">
+    <value>Type username...</value>
+  </data>
+  <data name="Profile_NoUsersFound" xml:space="preserve">
+    <value>No users found</value>
+  </data>
+  <data name="Profile_TabPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Profile_TabRatings" xml:space="preserve">
+    <value>Ratings</value>
+  </data>
+  <data name="Profile_ChangePassword" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="Profile_CurrentPassword" xml:space="preserve">
+    <value>Current password</value>
+  </data>
+  <data name="Profile_NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="Profile_ConfirmPassword" xml:space="preserve">
+    <value>Confirm new password</value>
+  </data>
+  <data name="Profile_SavePassword" xml:space="preserve">
+    <value>Update password</value>
+  </data>
+  <data name="Profile_PasswordChanged" xml:space="preserve">
+    <value>Password updated successfully</value>
+  </data>
+  <data name="Profile_PasswordMismatch" xml:space="preserve">
+    <value>Passwords do not match</value>
+  </data>
+  <data name="Profile_ReviewsTitle" xml:space="preserve">
+    <value>Ratings received</value>
+  </data>
+  <data name="Profile_ReviewsSummary" xml:space="preserve">
+    <value>{0} out of 5 · {1} ratings</value>
+  </data>
+  <data name="Profile_NoReviews" xml:space="preserve">
+    <value>No ratings yet</value>
+  </data>
+  <data name="Profile_AddReview" xml:space="preserve">
+    <value>Leave a rating</value>
+  </data>
+  <data name="Profile_ReviewRequest" xml:space="preserve">
+    <value>Parking request</value>
+  </data>
+  <data name="Profile_SelectRequest" xml:space="preserve">
+    <value>Select the related request</value>
+  </data>
+  <data name="Profile_NoEligibleRequests" xml:space="preserve">
+    <value>You can only rate each other if you both exchanged at least one chat message.</value>
+  </data>
+  <data name="Profile_ReviewRating" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="Profile_ReviewComment" xml:space="preserve">
+    <value>Comment (optional)</value>
+  </data>
+  <data name="Profile_ReviewCommentPh" xml:space="preserve">
+    <value>E.g. pays on time, accurate report...</value>
+  </data>
+  <data name="Profile_SubmitReview" xml:space="preserve">
+    <value>Publish rating</value>
+  </data>
+  <data name="Profile_ReviewSubmitted" xml:space="preserve">
+    <value>Rating published</value>
+  </data>
+  <data name="Profile_ReviewOnRequest" xml:space="preserve">
+    <value>Listing: {0}</value>
+  </data>
+  <data name="Profile_AlreadyReviewed" xml:space="preserve">
+    <value>You already rated this user</value>
+  </data>
+  <data name="Profile_OpenProfile" xml:space="preserve">
+    <value>Open profile</value>
+  </data>
+  <data name="Profile_ChangePhoto" xml:space="preserve">
+    <value>Change photo</value>
+  </data>
+  <data name="Profile_RemovePhoto" xml:space="preserve">
+    <value>Remove photo</value>
+  </data>
+  <data name="Profile_PhotoUpdated" xml:space="preserve">
+    <value>Profile photo updated</value>
+  </data>
+  <data name="Profile_PhotoAlt" xml:space="preserve">
+    <value>Profile photo</value>
+  </data>
+  <data name="Error_InvalidCurrentPassword" xml:space="preserve">
+    <value>Current password is incorrect.</value>
+  </data>
+  <data name="Error_CannotReviewSelf" xml:space="preserve">
+    <value>You cannot rate yourself.</value>
+  </data>
+  <data name="Error_InvalidReviewRating" xml:space="preserve">
+    <value>Rating must be between 1 and 5 stars.</value>
+  </data>
+  <data name="Error_ReviewCommentTooLong" xml:space="preserve">
+    <value>Comment cannot exceed {0} characters.</value>
+  </data>
+  <data name="Error_ReviewNotEligible" xml:space="preserve">
+    <value>You can only rate each other if you both exchanged at least one chat message.</value>
+  </data>
+  <data name="Error_ReviewAlreadyExists" xml:space="preserve">
+    <value>You already rated this user.</value>
+  </data>
+</root>

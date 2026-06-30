@@ -1,0 +1,964 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App_Title" xml:space="preserve">
+    <value>Spotster</value>
+  </data>
+  <data name="App_Subtitle" xml:space="preserve">
+    <value>Parcheggi liberi, condivisi dalla community</value>
+  </data>
+  <data name="Auth_Login" xml:space="preserve">
+    <value>Accedi</value>
+  </data>
+  <data name="Auth_Register" xml:space="preserve">
+    <value>Registrati</value>
+  </data>
+  <data name="Auth_Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Auth_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Auth_LoginBtn" xml:space="preserve">
+    <value>Accedi</value>
+  </data>
+  <data name="Auth_RegisterBtn" xml:space="preserve">
+    <value>Crea account</value>
+  </data>
+  <data name="Auth_FirstName" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="Auth_LastName" xml:space="preserve">
+    <value>Cognome</value>
+  </data>
+  <data name="Auth_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Auth_DateOfBirth" xml:space="preserve">
+    <value>Data di nascita</value>
+  </data>
+  <data name="Auth_ConfirmPassword" xml:space="preserve">
+    <value>Conferma password</value>
+  </data>
+  <data name="Auth_RegisterPending" xml:space="preserve">
+    <value>Registrazione completata. Controlla la tua email e clicca sul link per attivare l'account.</value>
+  </data>
+  <data name="Auth_EmailConfirmed" xml:space="preserve">
+    <value>Email confermata con successo. Ora puoi accedere.</value>
+  </data>
+  <data name="Auth_EmailConfirmFailed" xml:space="preserve">
+    <value>Link di conferma non valido o scaduto. Richiedi una nuova email.</value>
+  </data>
+  <data name="Auth_ResendConfirmation" xml:space="preserve">
+    <value>Reinvia email di conferma</value>
+  </data>
+  <data name="Auth_ResendConfirmationDone" xml:space="preserve">
+    <value>Se l'indirizzo è registrato e non ancora confermato, riceverai una nuova email.</value>
+  </data>
+  <data name="Auth_PasswordMismatch" xml:space="preserve">
+    <value>Le password non coincidono.</value>
+  </data>
+  <data name="Top_LogoutTitle" xml:space="preserve">
+    <value>Esci</value>
+  </data>
+  <data name="Top_ReviewStarsTitle" xml:space="preserve">
+    <value>Stelle dalle valutazioni</value>
+  </data>
+  <data name="Lang_IT" xml:space="preserve">
+    <value>IT</value>
+  </data>
+  <data name="Lang_EN" xml:space="preserve">
+    <value>EN</value>
+  </data>
+  <data name="Map_ViewRadius" xml:space="preserve">
+    <value>Zona visibile</value>
+  </data>
+  <data name="Map_LocateMe" xml:space="preserve">
+    <value>Centra sulla mia posizione</value>
+  </data>
+  <data name="Map_GeoPrompt_Title" xml:space="preserve">
+    <value>Abilita la posizione</value>
+  </data>
+  <data name="Map_GeoPrompt_Body" xml:space="preserve">
+    <value>Per vedere segnalazioni e annunci vicini, consenti l'accesso alla tua posizione.</value>
+  </data>
+  <data name="Map_GeoPrompt_Enable" xml:space="preserve">
+    <value>Consenti posizione</value>
+  </data>
+  <data name="Map_GeoPrompt_Loading" xml:space="preserve">
+    <value>Ricerca in corso...</value>
+  </data>
+  <data name="Map_GeoPrompt_Insecure" xml:space="preserve">
+    <value>La posizione funziona solo su https o http://localhost. Apri l'app da localhost, non dall'IP di rete.</value>
+  </data>
+  <data name="Map_GeoPrompt_Denied" xml:space="preserve">
+    <value>Permesso negato. Clicca il lucchetto nella barra degli indirizzi → Posizione → Consenti, poi ricarica.</value>
+  </data>
+  <data name="Map_GeoPickOnMap" xml:space="preserve">
+    <value>Scegli sulla mappa</value>
+  </data>
+  <data name="Map_ViewRadiusHint" xml:space="preserve">
+    <value>Mostra segnalazioni e annunci entro questo raggio dalla tua posizione</value>
+  </data>
+  <data name="Fab_Actions" xml:space="preserve">
+    <value>Azioni</value>
+  </data>
+  <data name="Fab_Report" xml:space="preserve">
+    <value>Segnala libero</value>
+  </data>
+  <data name="Fab_Search" xml:space="preserve">
+    <value>Richiesta parcheggio</value>
+  </data>
+  <data name="Sidebar_ListingsTitle" xml:space="preserve">
+    <value>In zona</value>
+  </data>
+  <data name="Sidebar_Close" xml:space="preserve">
+    <value>Chiudi pannello</value>
+  </data>
+  <data name="Sidebar_Open" xml:space="preserve">
+    <value>Apri annunci</value>
+  </data>
+  <data name="Sheet_Parkings" xml:space="preserve">
+    <value>Liberi</value>
+  </data>
+  <data name="Sheet_Requests" xml:space="preserve">
+    <value>Richieste</value>
+  </data>
+  <data name="Modal_Report_Title" xml:space="preserve">
+    <value>Segnala parcheggio libero</value>
+  </data>
+  <data name="Modal_Report_Desc" xml:space="preserve">
+    <value>Aggiungi una foto del posto libero per aiutare gli altri utenti.</value>
+  </data>
+  <data name="Modal_Report_Photo" xml:space="preserve">
+    <value>Scatta o carica una foto</value>
+  </data>
+  <data name="Modal_Report_PhotoHint" xml:space="preserve">
+    <value>JPG, PNG, WEBP — max 5 MB</value>
+  </data>
+  <data name="Modal_Report_Remove" xml:space="preserve">
+    <value>Rimuovi foto</value>
+  </data>
+  <data name="Modal_Report_LocDetect" xml:space="preserve">
+    <value>Rilevamento posizione...</value>
+  </data>
+  <data name="Modal_Report_Send" xml:space="preserve">
+    <value>Invia segnalazione</value>
+  </data>
+  <data name="Modal_Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="Modal_Search_Title" xml:space="preserve">
+    <value>Cerca parcheggio in zona</value>
+  </data>
+  <data name="Modal_Search_Desc" xml:space="preserve">
+    <value>Inserisci un indirizzo e scegli il raggio di ricerca. Gli altri utenti vedranno la tua richiesta.</value>
+  </data>
+  <data name="Modal_Search_Address" xml:space="preserve">
+    <value>Indirizzo</value>
+  </data>
+  <data name="Modal_Search_AddressPh" xml:space="preserve">
+    <value>Es. Via Roma 1, Milano</value>
+  </data>
+  <data name="Modal_Search_Radius" xml:space="preserve">
+    <value>Raggio di ricerca</value>
+  </data>
+  <data name="Modal_Radius_200" xml:space="preserve">
+    <value>200 metri</value>
+  </data>
+  <data name="Modal_Radius_500" xml:space="preserve">
+    <value>500 metri</value>
+  </data>
+  <data name="Modal_Radius_1000" xml:space="preserve">
+    <value>1 km</value>
+  </data>
+  <data name="Modal_Radius_2000" xml:space="preserve">
+    <value>2 km</value>
+  </data>
+  <data name="Modal_Radius_3000" xml:space="preserve">
+    <value>3 km</value>
+  </data>
+  <data name="Modal_Radius_5000" xml:space="preserve">
+    <value>5 km</value>
+  </data>
+  <data name="Modal_Search_Reward" xml:space="preserve">
+    <value>Ricompensa offerta (opzionale)</value>
+  </data>
+  <data name="Modal_Search_RewardHint" xml:space="preserve">
+    <value>Quanto sei disposto a pagare a chi trova un parcheggio</value>
+  </data>
+  <data name="Modal_Search_Payments" xml:space="preserve">
+    <value>Metodi di pagamento accettati</value>
+  </data>
+  <data name="Modal_Search_PaymentOtherPlaceholder" xml:space="preserve">
+    <value>Es. Wise, buoni pasto...</value>
+  </data>
+  <data name="Modal_Search_Publish" xml:space="preserve">
+    <value>Pubblica richiesta</value>
+  </data>
+  <data name="Modal_Search_EditTitle" xml:space="preserve">
+    <value>Modifica annuncio</value>
+  </data>
+  <data name="Modal_Search_EditDesc" xml:space="preserve">
+    <value>Aggiorna indirizzo, raggio, ricompensa e metodi di pagamento.</value>
+  </data>
+  <data name="Modal_Search_Save" xml:space="preserve">
+    <value>Salva modifiche</value>
+  </data>
+  <data name="Modal_Chat_Title" xml:space="preserve">
+    <value>Messaggi richiesta</value>
+  </data>
+  <data name="Modal_Chat_TitleMine" xml:space="preserve">
+    <value>Messaggi sul tuo annuncio</value>
+  </data>
+  <data name="Modal_Chat_TitleGuest" xml:space="preserve">
+    <value>Contatta richiedente</value>
+  </data>
+  <data name="Modal_Chat_Placeholder" xml:space="preserve">
+    <value>Scrivi un messaggio...</value>
+  </data>
+  <data name="Modal_Chat_SelectConv" xml:space="preserve">
+    <value>Seleziona una conversazione.</value>
+  </data>
+  <data name="Modal_Chat_EmptyOwner" xml:space="preserve">
+    <value>Nessun messaggio ancora. Gli altri utenti possono scriverti qui.</value>
+  </data>
+  <data name="Modal_Chat_EmptyGuest" xml:space="preserve">
+    <value>Scrivi per offrire un parcheggio o chiedere dettagli.</value>
+  </data>
+  <data name="Modal_Chat_NoMessagesYet" xml:space="preserve">
+    <value>Nessun messaggio</value>
+  </data>
+  <data name="Modal_Chat_ThreadsHeader" xml:space="preserve">
+    <value>Conversazioni</value>
+  </data>
+  <data name="Modal_Chat_BlockedCantWrite" xml:space="preserve">
+    <value>Non puoi scrivere: sei stato bloccato su questo annuncio.</value>
+  </data>
+  <data name="Modal_Chat_SendLocation" xml:space="preserve">
+    <value>Invia la tua posizione</value>
+  </data>
+  <data name="Modal_Chat_LocationShared" xml:space="preserve">
+    <value>Posizione condivisa</value>
+  </data>
+  <data name="Modal_Chat_LocateOnMap" xml:space="preserve">
+    <value>Localizza nella mappa</value>
+  </data>
+  <data name="Modal_Chat_LocationMarker" xml:space="preserve">
+    <value>Posizione condivisa in chat</value>
+  </data>
+  <data name="Modal_Chat_RemoveLocationFlag" xml:space="preserve">
+    <value>Rimuovi bandierina</value>
+  </data>
+  <data name="Chat_LocationPreview" xml:space="preserve">
+    <value>Posizione condivisa</value>
+  </data>
+  <data name="Modal_Chat_SendPhoto" xml:space="preserve">
+    <value>Invia foto</value>
+  </data>
+  <data name="Modal_Chat_PhotoAlt" xml:space="preserve">
+    <value>Foto inviata in chat</value>
+  </data>
+  <data name="Chat_PhotoPreview" xml:space="preserve">
+    <value>Foto</value>
+  </data>
+  <data name="Toast_ChatLocationUnavailable" xml:space="preserve">
+    <value>Posizione non disponibile. Attiva il GPS e riprova.</value>
+  </data>
+  <data name="Modal_Vote_Title" xml:space="preserve">
+    <value>Valuta segnalazione</value>
+  </data>
+  <data name="Modal_ParkingDetail_Title" xml:space="preserve">
+    <value>Dettaglio segnalazione</value>
+  </data>
+  <data name="Modal_ParkingDetail_NoPhoto" xml:space="preserve">
+    <value>Nessuna foto allegata</value>
+  </data>
+  <data name="Modal_Vote_Question" xml:space="preserve">
+    <value>Il parcheggio segnalato è ancora libero?</value>
+  </data>
+  <data name="Modal_Vote_Yes" xml:space="preserve">
+    <value>Sì, confermo</value>
+  </data>
+  <data name="Modal_Vote_No" xml:space="preserve">
+    <value>No, non c&apos;è</value>
+  </data>
+  <data name="Modal_Vote_AlreadyDone" xml:space="preserve">
+    <value>Hai già espresso il tuo parere su questa segnalazione.</value>
+  </data>
+  <data name="Modal_ParkingDetail_OwnReport" xml:space="preserve">
+    <value>Questa è la tua segnalazione.</value>
+  </data>
+  <data name="List_NoRequests" xml:space="preserve">
+    <value>Nessuna richiesta attiva entro {0}</value>
+  </data>
+  <data name="List_NoRequestsFiltered" xml:space="preserve">
+    <value>Nessuna richiesta con questo filtro entro {0}</value>
+  </data>
+  <data name="Filter_Requests_All" xml:space="preserve">
+    <value>Tutte</value>
+  </data>
+  <data name="Filter_Requests_Open" xml:space="preserve">
+    <value>Aperte</value>
+  </data>
+  <data name="Filter_Requests_InDeal" xml:space="preserve">
+    <value>In trattativa</value>
+  </data>
+  <data name="List_NoParkings" xml:space="preserve">
+    <value>Nessun parcheggio attivo entro {0}</value>
+  </data>
+  <data name="List_MyAd" xml:space="preserve">
+    <value>Il tuo annuncio</value>
+  </data>
+  <data name="List_MyReport" xml:space="preserve">
+    <value>La tua segnalazione</value>
+  </data>
+  <data name="List_MsgsReceived" xml:space="preserve">
+    <value>Messaggi ricevuti</value>
+  </data>
+  <data name="List_ConversationsCount" xml:space="preserve">
+    <value>{0} conversazioni</value>
+  </data>
+  <data name="List_Contact" xml:space="preserve">
+    <value>Contatta</value>
+  </data>
+  <data name="List_OffMap" xml:space="preserve">
+    <value>Fuori mappa</value>
+  </data>
+  <data name="List_MyOffZone" xml:space="preserve">
+    <value>Fuori dalla tua zona visibile</value>
+  </data>
+  <data name="List_Renew" xml:space="preserve">
+    <value>Rinnova per 1 ora</value>
+  </data>
+  <data name="Request_MarkInDeal" xml:space="preserve">
+    <value>Segna in trattativa</value>
+  </data>
+  <data name="Request_InDealBadge" xml:space="preserve">
+    <value>In trattativa</value>
+  </data>
+  <data name="Request_InDealByYou" xml:space="preserve">
+    <value>L&apos;annuncio è in trattativa con te</value>
+  </data>
+  <data name="Request_MessagingClosedInDeal" xml:space="preserve">
+    <value>Messaggi disabilitati: annuncio in trattativa con un altro utente</value>
+  </data>
+  <data name="Request_ThreadDealBlocked" xml:space="preserve">
+    <value>Trattativa altrove</value>
+  </data>
+  <data name="List_EditAd" xml:space="preserve">
+    <value>Modifica annuncio</value>
+  </data>
+  <data name="List_DelAd" xml:space="preserve">
+    <value>Elimina annuncio</value>
+  </data>
+  <data name="List_DelReport" xml:space="preserve">
+    <value>Elimina segnalazione</value>
+  </data>
+  <data name="List_LocateOnMap" xml:space="preserve">
+    <value>Localizza</value>
+  </data>
+  <data name="List_PopupRemaining" xml:space="preserve">
+    <value>{0} rimanenti</value>
+  </data>
+  <data name="List_YourPosition" xml:space="preserve">
+    <value>La tua posizione</value>
+  </data>
+  <data name="List_PhotoAlt" xml:space="preserve">
+    <value>Foto</value>
+  </data>
+  <data name="List_VotePhotoAlt" xml:space="preserve">
+    <value>Foto parcheggio</value>
+  </data>
+  <data name="Time_Expired" xml:space="preserve">
+    <value>Scaduto</value>
+  </data>
+  <data name="Toast_GeoUnsupported" xml:space="preserve">
+    <value>Geolocalizzazione non supportata</value>
+  </data>
+  <data name="Toast_GeoDisabled" xml:space="preserve">
+    <value>Abilita la geolocalizzazione per usare la mappa</value>
+  </data>
+  <data name="Toast_GeoDenied" xml:space="preserve">
+    <value>Permesso posizione negato. Usa il pulsante Consenti posizione o abilitalo nelle impostazioni del browser.</value>
+  </data>
+  <data name="Toast_GeoAcquiring" xml:space="preserve">
+    <value>Acquisizione posizione in corso...</value>
+  </data>
+  <data name="Toast_GeoSuccess" xml:space="preserve">
+    <value>Posizione acquisita</value>
+  </data>
+  <data name="Toast_GeoTimeout" xml:space="preserve">
+    <value>Timeout GPS. Verifica che la posizione sia attiva in Windows e nel browser.</value>
+  </data>
+  <data name="Toast_GeoUnavailable" xml:space="preserve">
+    <value>Posizione non disponibile. Attiva Località in Windows oppure usa Scegli sulla mappa.</value>
+  </data>
+  <data name="Toast_GeoPickHint" xml:space="preserve">
+    <value>Clicca un punto sulla mappa per impostare la tua posizione.</value>
+  </data>
+  <data name="Toast_LoadRequestsError" xml:space="preserve">
+    <value>Errore caricamento richieste</value>
+  </data>
+  <data name="Toast_AdRenewed" xml:space="preserve">
+    <value>Annuncio rinnovato per 1 ora</value>
+  </data>
+  <data name="Toast_ReportDeleted" xml:space="preserve">
+    <value>Segnalazione eliminata</value>
+  </data>
+  <data name="Toast_AdDeleted" xml:space="preserve">
+    <value>Annuncio eliminato</value>
+  </data>
+  <data name="Toast_LoadPaymentsError" xml:space="preserve">
+    <value>Errore caricamento metodi di pagamento</value>
+  </data>
+  <data name="Toast_SelectConversation" xml:space="preserve">
+    <value>Seleziona una conversazione</value>
+  </data>
+  <data name="Toast_LoadParkingsError" xml:space="preserve">
+    <value>Errore caricamento parcheggi</value>
+  </data>
+  <data name="Toast_OutOfRange" xml:space="preserve">
+    <value>Parcheggio fuori dal raggio di 2 km</value>
+  </data>
+  <data name="Toast_WaitGps" xml:space="preserve">
+    <value>Attendi il rilevamento GPS...</value>
+  </data>
+  <data name="Toast_EnterAddress" xml:space="preserve">
+    <value>Inserisci un indirizzo</value>
+  </data>
+  <data name="Toast_GeocodeFirst" xml:space="preserve">
+    <value>Cerca prima un indirizzo</value>
+  </data>
+  <data name="Toast_RewardNeedsPayment" xml:space="preserve">
+    <value>Se offri una ricompensa, seleziona almeno un metodo di pagamento</value>
+  </data>
+  <data name="Toast_OtherPaymentRequired" xml:space="preserve">
+    <value>Specifica il metodo di pagamento in "Altro"</value>
+  </data>
+  <data name="Toast_RequestPublished" xml:space="preserve">
+    <value>Richiesta pubblicata!</value>
+  </data>
+  <data name="Toast_RequestUpdated" xml:space="preserve">
+    <value>Annuncio aggiornato!</value>
+  </data>
+  <data name="Toast_PhotoTooLarge" xml:space="preserve">
+    <value>La foto non può superare i 5 MB</value>
+  </data>
+  <data name="Toast_LocationUnavailable" xml:space="preserve">
+    <value>Posizione non disponibile</value>
+  </data>
+  <data name="Toast_ReportSent" xml:space="preserve">
+    <value>Parcheggio segnalato!</value>
+  </data>
+  <data name="Toast_VoteYes" xml:space="preserve">
+    <value>Voto positivo registrato</value>
+  </data>
+  <data name="Toast_VoteNo" xml:space="preserve">
+    <value>Segnalazione contestata</value>
+  </data>
+  <data name="Toast_NewReport" xml:space="preserve">
+    <value>Nuovo parcheggio segnalato!</value>
+  </data>
+  <data name="Toast_ParkingNearRequest" xml:space="preserve">
+    <value>Nuovo parcheggio segnalato vicino alla tua richiesta: {0}</value>
+  </data>
+  <data name="Toast_RequestFulfilled" xml:space="preserve">
+    <value>Richiesta soddisfatta vicino a: {0}</value>
+  </data>
+  <data name="Toast_RequestMarkedInDeal" xml:space="preserve">
+    <value>Annuncio in trattativa: hai 1 ora per messaggi e valutazione.</value>
+  </data>
+  <data name="Toast_RequestInDeal" xml:space="preserve">
+    <value>Questo annuncio è già in trattativa con un altro utente.</value>
+  </data>
+  <data name="Toast_SuspiciousActivity" xml:space="preserve">
+    <value>Attività sospetta rilevata: {0}</value>
+  </data>
+  <data name="Toast_RealtimeError" xml:space="preserve">
+    <value>Errore connessione realtime</value>
+  </data>
+  <data name="Toast_NetworkError" xml:space="preserve">
+    <value>Errore di rete</value>
+  </data>
+  <data name="Suggest_NoResults" xml:space="preserve">
+    <value>Nessun risultato</value>
+  </data>
+  <data name="Confirm_DeleteReport" xml:space="preserve">
+    <value>Eliminare questa segnalazione?</value>
+  </data>
+  <data name="Confirm_DeleteAd" xml:space="preserve">
+    <value>Eliminare questo annuncio?</value>
+  </data>
+  <data name="Modal_ConfirmDelete_Title" xml:space="preserve">
+    <value>Conferma eliminazione</value>
+  </data>
+  <data name="Modal_ConfirmDelete_Btn" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="Payment_Cash" xml:space="preserve">
+    <value>Contanti</value>
+  </data>
+  <data name="Payment_Satispay" xml:space="preserve">
+    <value>Satispay</value>
+  </data>
+  <data name="Payment_Paypal" xml:space="preserve">
+    <value>PayPal</value>
+  </data>
+  <data name="Payment_BankTransfer" xml:space="preserve">
+    <value>Bonifico bancario</value>
+  </data>
+  <data name="Payment_Revolut" xml:space="preserve">
+    <value>Revolut</value>
+  </data>
+  <data name="Payment_Other" xml:space="preserve">
+    <value>Altro</value>
+  </data>
+  <data name="Error_AccountUnauthorized" xml:space="preserve">
+    <value>Account non autorizzato.</value>
+  </data>
+  <data name="Error_AccountUnauthorizedVote" xml:space="preserve">
+    <value>Account non autorizzato a votare.</value>
+  </data>
+  <data name="Error_UserNotFound" xml:space="preserve">
+    <value>Utente non trovato.</value>
+  </data>
+  <data name="Error_InvalidCoordinates" xml:space="preserve">
+    <value>Coordinate non valide.</value>
+  </data>
+  <data name="Error_InvalidRefreshToken" xml:space="preserve">
+    <value>Refresh token non valido.</value>
+  </data>
+  <data name="Error_RefreshTokenExpiredOrRevoked" xml:space="preserve">
+    <value>Refresh token scaduto o revocato.</value>
+  </data>
+  <data name="Error_UserNotAuthenticated" xml:space="preserve">
+    <value>Utente non autenticato.</value>
+  </data>
+  <data name="Error_RewardRange" xml:space="preserve">
+    <value>La ricompensa deve essere tra 0 e {0} EUR.</value>
+  </data>
+  <data name="Error_RewardNeedsPayment" xml:space="preserve">
+    <value>Se offri una ricompensa, seleziona almeno un metodo di pagamento.</value>
+  </data>
+  <data name="Error_OtherPaymentEmpty" xml:space="preserve">
+    <value>Specifica il metodo di pagamento nel campo "Altro".</value>
+  </data>
+  <data name="Error_MaxActiveRequests" xml:space="preserve">
+    <value>Hai già un annuncio attivo. Eliminalo o attendi la scadenza prima di pubblicarne un altro.</value>
+  </data>
+  <data name="Error_DailyRequestLimit" xml:space="preserve">
+    <value>Hai già pubblicato il tuo annuncio per oggi. Riprova domani.</value>
+  </data>
+  <data name="Error_RequestNotFound" xml:space="preserve">
+    <value>Richiesta non trovata.</value>
+  </data>
+  <data name="Error_RenewOwnOnly" xml:space="preserve">
+    <value>Puoi rinnovare solo i tuoi annunci.</value>
+  </data>
+  <data name="Error_UpdateRequestOwnOnly" xml:space="preserve">
+    <value>Puoi modificare solo i tuoi annunci.</value>
+  </data>
+  <data name="Error_RequestInactive" xml:space="preserve">
+    <value>La richiesta non è più attiva.</value>
+  </data>
+  <data name="Error_RequestReserved" xml:space="preserve">
+    <value>L&apos;annuncio è già in trattativa con un altro utente.</value>
+  </data>
+  <data name="Error_ReserveGuestOnly" xml:space="preserve">
+    <value>Solo il proprietario dell&apos;annuncio può segnarlo in trattativa.</value>
+  </data>
+  <data name="Error_ReserveOwnerOnly" xml:space="preserve">
+    <value>Solo il proprietario dell&apos;annuncio può segnarlo in trattativa.</value>
+  </data>
+  <data name="Error_ReserveNeedsMessage" xml:space="preserve">
+    <value>Scrivi almeno un messaggio prima di segnarlo in trattativa.</value>
+  </data>
+  <data name="Error_ReserveGuestRequired" xml:space="preserve">
+    <value>Seleziona l&apos;utente con cui segnare l&apos;annuncio in trattativa.</value>
+  </data>
+  <data name="Error_UnreserveOwnerOnly" xml:space="preserve">
+    <value>Solo il proprietario può rimuovere lo stato in trattativa.</value>
+  </data>
+  <data name="Error_RequestNotReserved" xml:space="preserve">
+    <value>L&apos;annuncio non è in trattativa.</value>
+  </data>
+  <data name="Error_BlockGuestOwnerOnly" xml:space="preserve">
+    <value>Solo il proprietario può bloccare un utente su questo annuncio.</value>
+  </data>
+  <data name="Error_BlockGuestInvalid" xml:space="preserve">
+    <value>Utente non valido per il blocco.</value>
+  </data>
+  <data name="Error_BlockGuestNeedsThread" xml:space="preserve">
+    <value>Non c&apos;è una conversazione con questo utente.</value>
+  </data>
+  <data name="Error_UnblockGuestNotBlocked" xml:space="preserve">
+    <value>Questo utente non è bloccato su questo annuncio.</value>
+  </data>
+  <data name="Error_UserBlockedOnRequest" xml:space="preserve">
+    <value>Non puoi interagire con questo annuncio: sei stato bloccato dal proprietario.</value>
+  </data>
+  <data name="Request_UnmarkInDeal" xml:space="preserve">
+    <value>Rimuovi trattativa</value>
+  </data>
+  <data name="Request_BlockUser" xml:space="preserve">
+    <value>Blocca utente</value>
+  </data>
+  <data name="Request_UnblockUser" xml:space="preserve">
+    <value>Sblocca utente</value>
+  </data>
+  <data name="Request_UserBlocked" xml:space="preserve">
+    <value>Utente bloccato su questo annuncio</value>
+  </data>
+  <data name="Toast_RequestUnmarkedInDeal" xml:space="preserve">
+    <value>Stato in trattativa rimosso.</value>
+  </data>
+  <data name="Toast_UserBlocked" xml:space="preserve">
+    <value>Utente bloccato: non potrà più scrivere o segnare in trattativa.</value>
+  </data>
+  <data name="Toast_UserUnblocked" xml:space="preserve">
+    <value>Utente sbloccato: può di nuovo scrivere su questo annuncio.</value>
+  </data>
+  <data name="Error_RenewUsed" xml:space="preserve">
+    <value>Hai già usato il rinnovo per questo annuncio.</value>
+  </data>
+  <data name="Error_DeleteRequestOwnOnly" xml:space="preserve">
+    <value>Puoi eliminare solo i tuoi annunci.</value>
+  </data>
+  <data name="Error_ReportNotAllowed" xml:space="preserve">
+    <value>Segnalazione non consentita.</value>
+  </data>
+  <data name="Error_MaxActiveReports" xml:space="preserve">
+    <value>Puoi avere al massimo {0} segnalazioni attive. Elimina una segnalazione o attendi la scadenza.</value>
+  </data>
+  <data name="Error_ReportNotFound" xml:space="preserve">
+    <value>Segnalazione non trovata.</value>
+  </data>
+  <data name="Error_VoteNotAllowed" xml:space="preserve">
+    <value>Non è possibile votare questa segnalazione.</value>
+  </data>
+  <data name="Error_AlreadyVoted" xml:space="preserve">
+    <value>Hai già votato questa segnalazione.</value>
+  </data>
+  <data name="Error_VoteOwnReport" xml:space="preserve">
+    <value>Non puoi votare la tua segnalazione.</value>
+  </data>
+  <data name="Error_DeleteReportOwnOnly" xml:space="preserve">
+    <value>Puoi eliminare solo le tue segnalazioni.</value>
+  </data>
+  <data name="Error_OwnerOnlyConversations" xml:space="preserve">
+    <value>Solo il creatore può vedere le conversazioni.</value>
+  </data>
+  <data name="Error_MessageEmpty" xml:space="preserve">
+    <value>Il messaggio non può essere vuoto.</value>
+  </data>
+  <data name="Error_MessageTooLong" xml:space="preserve">
+    <value>Il messaggio non può superare {0} caratteri.</value>
+  </data>
+  <data name="Error_ReplyToRequired" xml:space="preserve">
+    <value>Specifica l&apos;utente a cui rispondere.</value>
+  </data>
+  <data name="Error_NoConversation" xml:space="preserve">
+    <value>Nessuna conversazione con questo utente.</value>
+  </data>
+  <data name="Error_ThreadUserRequired" xml:space="preserve">
+    <value>Specifica con quale utente visualizzare la conversazione.</value>
+  </data>
+  <data name="Error_InvalidConversation" xml:space="preserve">
+    <value>Conversazione non valida.</value>
+  </data>
+  <data name="Error_ConversationAccessDenied" xml:space="preserve">
+    <value>Non puoi accedere a questa conversazione.</value>
+  </data>
+  <data name="Error_AddressRequired" xml:space="preserve">
+    <value>L&apos;indirizzo è obbligatorio.</value>
+  </data>
+  <data name="Error_AddressNotFound" xml:space="preserve">
+    <value>Indirizzo non trovato. Prova con più dettagli.</value>
+  </data>
+  <data name="Error_GeocodingInvalid" xml:space="preserve">
+    <value>Risposta geocoding non valida.</value>
+  </data>
+  <data name="Error_CredentialsRequired" xml:space="preserve">
+    <value>Username e password sono obbligatori.</value>
+  </data>
+  <data name="Error_PasswordTooShort" xml:space="preserve">
+    <value>La password deve avere almeno 6 caratteri.</value>
+  </data>
+  <data name="Error_UsernameTaken" xml:space="preserve">
+    <value>Username già registrato.</value>
+  </data>
+  <data name="Error_InvalidCredentials" xml:space="preserve">
+    <value>Credenziali non valide.</value>
+  </data>
+  <data name="Error_EmailNotConfirmed" xml:space="preserve">
+    <value>Devi confermare l'email prima di accedere. Controlla la posta o richiedi un nuovo invio.</value>
+  </data>
+  <data name="Error_EmailTaken" xml:space="preserve">
+    <value>Email già registrata.</value>
+  </data>
+  <data name="Error_EmailInvalid" xml:space="preserve">
+    <value>Indirizzo email non valido.</value>
+  </data>
+  <data name="Error_EmailRequired" xml:space="preserve">
+    <value>Email obbligatoria.</value>
+  </data>
+  <data name="Error_RegistrationFieldsRequired" xml:space="preserve">
+    <value>Compila tutti i campi obbligatori della registrazione.</value>
+  </data>
+  <data name="Error_InvalidDateOfBirth" xml:space="preserve">
+    <value>Data di nascita non valida.</value>
+  </data>
+  <data name="Error_MinimumAge" xml:space="preserve">
+    <value>Devi avere almeno {0} anni per registrarti.</value>
+  </data>
+  <data name="Email_ConfirmSubject" xml:space="preserve">
+    <value>Conferma il tuo account Spotster</value>
+  </data>
+  <data name="Email_ConfirmGreeting" xml:space="preserve">
+    <value>Ciao {0},</value>
+  </data>
+  <data name="Email_ConfirmBody" xml:space="preserve">
+    <value>Grazie per esserti registrato su Spotster. Clicca sul pulsante qui sotto per confermare il tuo indirizzo email e attivare l'account.</value>
+  </data>
+  <data name="Email_ConfirmButton" xml:space="preserve">
+    <value>Conferma email</value>
+  </data>
+  <data name="Email_ConfirmFooter" xml:space="preserve">
+    <value>Se non hai richiesto questa registrazione, ignora questo messaggio.</value>
+  </data>
+  <data name="Error_AccountBanned" xml:space="preserve">
+    <value>Account bannato.</value>
+  </data>
+  <data name="Error_PhotoTooLarge" xml:space="preserve">
+    <value>La foto non può superare i 5 MB.</value>
+  </data>
+  <data name="Error_PhotoRequired" xml:space="preserve">
+    <value>Seleziona un&apos;immagine.</value>
+  </data>
+  <data name="Error_PhotoUnsupportedFormat" xml:space="preserve">
+    <value>Formato foto non supportato. Usa JPG, PNG o WEBP.</value>
+  </data>
+  <data name="Error_PhotoInvalidType" xml:space="preserve">
+    <value>Tipo file non valido.</value>
+  </data>
+  <data name="Error_ReportRateLimit" xml:space="preserve">
+    <value>Limite segnalazioni raggiunto. Riprova tra qualche minuto.</value>
+  </data>
+  <data name="Error_ReportDeviceLimit" xml:space="preserve">
+    <value>Troppe segnalazioni da questo dispositivo/rete.</value>
+  </data>
+  <data name="Error_GpsSuspicious" xml:space="preserve">
+    <value>Movimento GPS sospetto. Segnalazioni temporaneamente bloccate.</value>
+  </data>
+  <data name="Error_AccountSuspended" xml:space="preserve">
+    <value>Account sospeso fino a {0} UTC.</value>
+  </data>
+  <data name="Account_Suspended_Title" xml:space="preserve">
+    <value>Account sospeso — azioni limitate</value>
+  </data>
+  <data name="Account_Suspended_Detail" xml:space="preserve">
+    <value>Non puoi pubblicare segnalazioni o annunci fino alle {0}.</value>
+  </data>
+  <data name="Account_Suspended_CountdownLabel" xml:space="preserve">
+    <value>Rimanente</value>
+  </data>
+  <data name="Account_Suspended_Badge" xml:space="preserve">
+    <value>SOSPESO</value>
+  </data>
+  <data name="Account_Suspended_Modal_Title" xml:space="preserve">
+    <value>Il tuo account è sospeso</value>
+  </data>
+  <data name="Account_Suspended_Modal_Body" xml:space="preserve">
+    <value>Attività sospette rilevate sul tuo account. Puoi ancora consultare la mappa e gestire i tuoi contenuti esistenti, ma non pubblicare nuove segnalazioni o annunci fino alla scadenza della sospensione.</value>
+  </data>
+  <data name="Account_Suspended_Modal_Until" xml:space="preserve">
+    <value>Sospensione attiva fino alle {0}</value>
+  </data>
+  <data name="Account_Suspended_Modal_Ok" xml:space="preserve">
+    <value>Ho capito</value>
+  </data>
+  <data name="Account_Suspended_Toast" xml:space="preserve">
+    <value>Il tuo account è stato sospeso temporaneamente.</value>
+  </data>
+  <data name="Account_Suspended_ActionBlocked" xml:space="preserve">
+    <value>Account sospeso: non puoi eseguire questa azione in questo momento.</value>
+  </data>
+  <data name="Profile_Title" xml:space="preserve">
+    <value>Profilo</value>
+  </data>
+  <data name="Profile_MyTitle" xml:space="preserve">
+    <value>Il mio profilo</value>
+  </data>
+  <data name="Profile_UserTitle" xml:space="preserve">
+    <value>Profilo di {0}</value>
+  </data>
+  <data name="Profile_SearchUser" xml:space="preserve">
+    <value>Cerca utente</value>
+  </data>
+  <data name="Profile_SearchPlaceholder" xml:space="preserve">
+    <value>Digita username...</value>
+  </data>
+  <data name="Profile_NoUsersFound" xml:space="preserve">
+    <value>Nessun utente trovato</value>
+  </data>
+  <data name="Profile_TabPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Profile_TabRatings" xml:space="preserve">
+    <value>Valutazioni</value>
+  </data>
+  <data name="Profile_ChangePassword" xml:space="preserve">
+    <value>Cambia password</value>
+  </data>
+  <data name="Profile_CurrentPassword" xml:space="preserve">
+    <value>Password attuale</value>
+  </data>
+  <data name="Profile_NewPassword" xml:space="preserve">
+    <value>Nuova password</value>
+  </data>
+  <data name="Profile_ConfirmPassword" xml:space="preserve">
+    <value>Conferma nuova password</value>
+  </data>
+  <data name="Profile_SavePassword" xml:space="preserve">
+    <value>Aggiorna password</value>
+  </data>
+  <data name="Profile_PasswordChanged" xml:space="preserve">
+    <value>Password aggiornata con successo</value>
+  </data>
+  <data name="Profile_PasswordMismatch" xml:space="preserve">
+    <value>Le password non coincidono</value>
+  </data>
+  <data name="Profile_ReviewsTitle" xml:space="preserve">
+    <value>Valutazioni ricevute</value>
+  </data>
+  <data name="Profile_ReviewsSummary" xml:space="preserve">
+    <value>{0} su 5 · {1} valutazioni</value>
+  </data>
+  <data name="Profile_NoReviews" xml:space="preserve">
+    <value>Nessuna valutazione ancora</value>
+  </data>
+  <data name="Profile_AddReview" xml:space="preserve">
+    <value>Lascia una valutazione</value>
+  </data>
+  <data name="Profile_ReviewRequest" xml:space="preserve">
+    <value>Richiesta parcheggio</value>
+  </data>
+  <data name="Profile_SelectRequest" xml:space="preserve">
+    <value>Seleziona la richiesta collegata</value>
+  </data>
+  <data name="Profile_NoEligibleRequests" xml:space="preserve">
+    <value>Potete valutarvi solo se avete entrambi scambiato almeno un messaggio in chat.</value>
+  </data>
+  <data name="Profile_ReviewRating" xml:space="preserve">
+    <value>Valutazione</value>
+  </data>
+  <data name="Profile_ReviewComment" xml:space="preserve">
+    <value>Commento (opzionale)</value>
+  </data>
+  <data name="Profile_ReviewCommentPh" xml:space="preserve">
+    <value>Es. paga puntualmente, segnalazione corretta...</value>
+  </data>
+  <data name="Profile_SubmitReview" xml:space="preserve">
+    <value>Pubblica valutazione</value>
+  </data>
+  <data name="Profile_ReviewSubmitted" xml:space="preserve">
+    <value>Valutazione pubblicata</value>
+  </data>
+  <data name="Profile_ReviewOnRequest" xml:space="preserve">
+    <value>Annuncio: {0}</value>
+  </data>
+  <data name="Profile_AlreadyReviewed" xml:space="preserve">
+    <value>Hai già valutato questo utente</value>
+  </data>
+  <data name="Profile_OpenProfile" xml:space="preserve">
+    <value>Apri profilo</value>
+  </data>
+  <data name="Profile_ChangePhoto" xml:space="preserve">
+    <value>Cambia foto</value>
+  </data>
+  <data name="Profile_RemovePhoto" xml:space="preserve">
+    <value>Rimuovi foto</value>
+  </data>
+  <data name="Profile_PhotoUpdated" xml:space="preserve">
+    <value>Immagine profilo aggiornata</value>
+  </data>
+  <data name="Profile_PhotoAlt" xml:space="preserve">
+    <value>Immagine profilo</value>
+  </data>
+  <data name="Error_InvalidCurrentPassword" xml:space="preserve">
+    <value>Password attuale non corretta.</value>
+  </data>
+  <data name="Error_CannotReviewSelf" xml:space="preserve">
+    <value>Non puoi valutare te stesso.</value>
+  </data>
+  <data name="Error_InvalidReviewRating" xml:space="preserve">
+    <value>La valutazione deve essere tra 1 e 5 stelle.</value>
+  </data>
+  <data name="Error_ReviewCommentTooLong" xml:space="preserve">
+    <value>Il commento non può superare {0} caratteri.</value>
+  </data>
+  <data name="Error_ReviewNotEligible" xml:space="preserve">
+    <value>Potete valutarvi solo se avete entrambi scambiato almeno un messaggio in chat.</value>
+  </data>
+  <data name="Error_ReviewAlreadyExists" xml:space="preserve">
+    <value>Hai già valutato questo utente.</value>
+  </data>
+</root>

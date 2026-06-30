@@ -1,0 +1,6 @@
+@Spotster_HostAddress = http://localhost:5124
+
+GET {{Spotster_HostAddress}}/api/parking/active
+Accept: application/json
+
+###

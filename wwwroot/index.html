@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title data-i18n="App_Title">Spotster</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%233DAA6D'/><text x='16' y='22' font-family='Arial,sans-serif' font-size='18' font-weight='bold' fill='white' text-anchor='middle'>P</text></svg>" type="image/svg+xml">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+    <link href="/css/app.css?v=64" rel="stylesheet">
+</head>
+<body>
+    <!-- Auth Screen -->
+    <div id="auth-screen" class="auth-screen">
+        <div class="auth-bg-blobs" aria-hidden="true">
+            <div class="blob blob-green"></div>
+            <div class="blob blob-blue"></div>
+        </div>
+        <div class="auth-lang-bar">
+            <div class="lang-switch" id="auth-lang-switch" role="group" aria-label="Language">
+                <button type="button" class="lang-btn active" data-lang="it" data-i18n="Lang_IT">IT</button>
+                <button type="button" class="lang-btn" data-lang="en" data-i18n="Lang_EN">EN</button>
+            </div>
+        </div>
+        <div class="auth-card">
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="bi bi-p-circle-fill"></i>
+                </div>
+                <h1 data-i18n="App_Title">Spotster</h1>
+                <p data-i18n="App_Subtitle">Parcheggi liberi, condivisi dalla community</p>
+            </div>
+            <ul class="nav nav-pills nav-fill mb-3" id="auth-tabs">
+                <li class="nav-item">
+                    <button class="nav-link active" data-tab="login" data-i18n="Auth_Login">Accedi</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-tab="register" data-i18n="Auth_Register">Registrati</button>
+                </li>
+            </ul>
+            <div id="auth-alert" class="alert alert-danger d-none" role="alert"></div>
+            <div id="auth-success" class="alert alert-success d-none" role="status"></div>
+            <div id="auth-resend-wrap" class="d-none mb-3">
+                <label class="form-label" data-i18n="Auth_Email">Email</label>
+                <div class="input-group">
+                    <input type="email" class="form-control" id="resend-email" autocomplete="email">
+                    <button type="button" class="btn btn-outline-light" id="btn-resend-confirmation" data-i18n="Auth_ResendConfirmation">Reinvia email di conferma</button>
+                </div>
+            </div>
+            <form id="login-form">
+                <div class="mb-3">
+                    <label class="form-label" data-i18n="Auth_Username">Username</label>
+                    <input type="text" class="form-control form-control-lg" id="login-username" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" data-i18n="Auth_Password">Password</label>
+                    <input type="password" class="form-control form-control-lg" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg w-100" data-i18n="Auth_LoginBtn">Accedi</button>
+            </form>
+            <form id="register-form" class="d-none auth-register-form">
+                <div class="row g-2">
+                    <div class="col-6">
+                        <label class="form-label" data-i18n="Auth_FirstName">Nome</label>
+                        <input type="text" class="form-control" id="register-firstname" required maxlength="100" autocomplete="given-name">
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label" data-i18n="Auth_LastName">Cognome</label>
+                        <input type="text" class="form-control" id="register-lastname" required maxlength="100" autocomplete="family-name">
+                    </div>
+                </div>
+                <div class="mb-2 mt-2">
+                    <label class="form-label" data-i18n="Auth_Email">Email</label>
+                    <input type="email" class="form-control" id="register-email" required autocomplete="email">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label" data-i18n="Auth_DateOfBirth">Data di nascita</label>
+                    <input type="date" class="form-control" id="register-birthdate" required>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label" data-i18n="Auth_Username">Username</label>
+                    <input type="text" class="form-control" id="register-username" required autocomplete="username">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label" data-i18n="Auth_Password">Password</label>
+                    <input type="password" class="form-control" id="register-password" minlength="6" required autocomplete="new-password">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" data-i18n="Auth_ConfirmPassword">Conferma password</label>
+                    <input type="password" class="form-control" id="register-password-confirm" minlength="6" required autocomplete="new-password">
+                </div>
+                <button type="submit" class="btn btn-success btn-lg w-100" data-i18n="Auth_RegisterBtn">Crea account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard d-none">
+        <div class="top-bar">
+            <div class="user-info profile-open-self" id="btn-open-profile" role="button" tabindex="0" data-i18n="Profile_OpenProfile" data-i18n-attr="title">
+                <div class="user-avatar" id="user-avatar"></div>
+                <div class="user-details">
+                    <span class="username-row">
+                        <span class="username" id="display-username"></span>
+                        <span class="account-status-badge d-none" id="account-status-badge">
+                            <i class="bi bi-shield-lock-fill"></i>
+                            <span data-i18n="Account_Suspended_Badge">SOSPESO</span>
+                        </span>
+                    </span>
+                    <span class="review-stars" data-i18n-attr="title" data-i18n="Top_ReviewStarsTitle">
+                        <i class="bi bi-star-fill"></i>
+                        <span id="display-review-stars">0</span>
+                    </span>
+                </div>
+            </div>
+            <div class="top-bar-search-wrap">
+                <i class="bi bi-search top-bar-search-icon" aria-hidden="true"></i>
+                <input type="search" class="top-bar-search-input" id="top-user-search"
+                       data-i18n-placeholder="Profile_SearchPlaceholder"
+                       placeholder="Cerca utente..." autocomplete="off"
+                       aria-label="Cerca utente">
+                <div id="top-user-suggestions" class="top-user-suggestions d-none"></div>
+            </div>
+            <div class="top-bar-actions">
+                <div class="lang-switch" id="lang-switch">
+                    <button type="button" class="lang-btn active" data-lang="it" data-i18n="Lang_IT">IT</button>
+                    <button type="button" class="lang-btn" data-lang="en" data-i18n="Lang_EN">EN</button>
+                </div>
+                <button class="btn-logout" id="btn-logout" data-i18n="Top_LogoutTitle" data-i18n-attr="title">
+                    <i class="bi bi-box-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="account-suspended-banner" class="account-suspended-banner d-none" role="alert" aria-live="assertive">
+            <div class="account-suspended-banner-inner">
+                <div class="account-suspended-icon-wrap" aria-hidden="true">
+                    <i class="bi bi-shield-lock-fill"></i>
+                </div>
+                <div class="account-suspended-copy">
+                    <strong id="account-suspended-title" data-i18n="Account_Suspended_Title">Account sospeso</strong>
+                    <p class="account-suspended-detail" id="account-suspended-detail"></p>
+                </div>
+                <div class="account-suspended-countdown-wrap">
+                    <span class="account-suspended-countdown-label" data-i18n="Account_Suspended_CountdownLabel">Rimanente</span>
+                    <span class="account-suspended-countdown" id="account-suspended-countdown">--:--</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="geo-permission-banner" class="geo-permission-banner d-none" role="region" aria-labelledby="geo-permission-title">
+            <div class="geo-permission-card">
+                <div class="geo-permission-icon" aria-hidden="true"><i class="bi bi-geo-alt-fill"></i></div>
+                <h2 class="geo-permission-title" id="geo-permission-title" data-i18n="Map_GeoPrompt_Title">Abilita la posizione</h2>
+                <p class="geo-permission-text" id="geo-permission-hint" data-i18n="Map_GeoPrompt_Body">Per vedere segnalazioni e annunci vicini, consenti l&apos;accesso alla tua posizione.</p>
+                <button type="button" class="btn btn-primary btn-enable-geo" id="btn-enable-geo" data-i18n="Map_GeoPrompt_Enable">Consenti posizione</button>
+                <button type="button" class="btn btn-outline-secondary btn-pick-geo mt-2" id="btn-pick-geo-map" data-i18n="Map_GeoPickOnMap">Scegli sulla mappa</button>
+            </div>
+        </div>
+
+        <div id="map"></div>
+
+        <aside class="listings-sidebar" id="listings-sidebar" aria-label="Annunci in zona">
+            <div class="listings-sidebar-header">
+                <button type="button" class="sidebar-header-collapse" id="btn-sidebar-header-collapse"
+                        data-i18n="Sidebar_Close" data-i18n-attr="title" aria-label="Chiudi pannello">
+                    <i class="bi bi-chevron-left" aria-hidden="true"></i>
+                </button>
+                <div class="listings-sidebar-top">
+                    <div class="map-radius-control" id="map-radius-control">
+                        <label for="view-radius" class="map-radius-label">
+                            <i class="bi bi-bullseye"></i>
+                            <span data-i18n="Map_ViewRadius">Zona visibile</span>
+                        </label>
+                        <select id="view-radius" class="map-radius-select" aria-label="Raggio zona visibile">
+                            <option value="500" data-i18n="Modal_Radius_500">500 metri</option>
+                            <option value="1000" data-i18n="Modal_Radius_1000">1 km</option>
+                            <option value="2000" data-i18n="Modal_Radius_2000">2 km</option>
+                            <option value="3000" data-i18n="Modal_Radius_3000">3 km</option>
+                            <option value="5000" data-i18n="Modal_Radius_5000">5 km</option>
+                        </select>
+                    </div>
+                </div>
+                <ul class="nav nav-pills listings-tabs" id="listings-tabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button type="button" class="nav-link active" data-sheet="parkings" role="tab" aria-selected="true">
+                            <i class="bi bi-p-circle-fill"></i>
+                            <span data-i18n="Sheet_Parkings">Liberi</span>
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button type="button" class="nav-link" data-sheet="requests" role="tab" aria-selected="false">
+                            <i class="bi bi-broadcast"></i>
+                            <span data-i18n="Sheet_Requests">Richieste</span>
+                        </button>
+                    </li>
+                </ul>
+                <div class="listings-request-filter d-none" id="requests-deal-filter" role="group" aria-label="Filtra richieste">
+                    <button type="button" class="listings-filter-chip active" data-filter="all">
+                        <span data-i18n="Filter_Requests_All">Tutte</span>
+                    </button>
+                    <button type="button" class="listings-filter-chip" data-filter="open">
+                        <span data-i18n="Filter_Requests_Open">Aperte</span>
+                    </button>
+                    <button type="button" class="listings-filter-chip" data-filter="indeal">
+                        <span data-i18n="Filter_Requests_InDeal">In trattativa</span>
+                    </button>
+                </div>
+            </div>
+            <div class="listings-sidebar-body">
+                <div id="parking-list" class="listings-scroll parking-list" role="tabpanel"></div>
+                <div id="request-list" class="listings-scroll parking-list d-none" role="tabpanel"></div>
+            </div>
+        </aside>
+
+        <button type="button" class="listings-sidebar-toggle" id="btn-toggle-sidebar"
+                aria-controls="listings-sidebar" aria-expanded="true"
+                data-i18n="Sidebar_Close" data-i18n-attr="title" aria-label="Chiudi pannello">
+            <i class="bi bi-chevron-left" aria-hidden="true"></i>
+        </button>
+
+        <div class="map-fab-stack" id="map-fab-stack">
+            <button type="button" class="map-fab-locate" id="btn-locate-me"
+                    data-i18n="Map_LocateMe" data-i18n-attr="title" aria-label="La mia posizione">
+                <i class="bi bi-crosshair"></i>
+            </button>
+
+            <button class="fab" id="btn-action" data-i18n="Fab_Actions" data-i18n-attr="title">
+                <i class="bi bi-plus-lg fab-icon"></i>
+            </button>
+
+            <div class="fab-menu d-none" id="fab-menu">
+                <button class="fab-menu-item" id="btn-report" data-i18n="Fab_Report" data-i18n-attr="title">
+                    <i class="bi bi-p-circle"></i>
+                    <span data-i18n="Fab_Report">Segnala libero</span>
+                </button>
+                <button class="fab-menu-item fab-menu-item-search" id="btn-search-parking" data-i18n="Fab_Search" data-i18n-attr="title">
+                    <i class="bi bi-search"></i>
+                    <span data-i18n="Fab_Search">Richiesta parcheggio</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Modal -->
+    <div class="modal fade" id="report-modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" data-i18n="Modal_Report_Title">Segnala parcheggio libero</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-3" data-i18n="Modal_Report_Desc">Aggiungi una foto del posto libero per aiutare gli altri utenti.</p>
+
+                    <div class="photo-upload-area" id="photo-upload-area">
+                        <input type="file" id="report-photo" accept="image/jpeg,image/png,image/webp" capture="environment" class="d-none">
+                        <div id="photo-placeholder" class="photo-placeholder">
+                            <i class="bi bi-camera-fill"></i>
+                            <span data-i18n="Modal_Report_Photo">Scatta o carica una foto</span>
+                            <small data-i18n="Modal_Report_PhotoHint">JPG, PNG, WEBP — max 5 MB</small>
+                        </div>
+                        <img id="photo-preview" class="photo-preview d-none" alt="">
+                        <button type="button" class="btn btn-sm btn-outline-danger photo-remove d-none" id="btn-remove-photo">
+                            <i class="bi bi-trash"></i> <span data-i18n="Modal_Report_Remove">Rimuovi foto</span>
+                        </button>
+                    </div>
+
+                    <div class="location-hint mt-3">
+                        <i class="bi bi-geo-alt-fill text-primary"></i>
+                        <span id="report-location-text" data-i18n="Modal_Report_LocDetect">Rilevamento posizione...</span>
+                    </div>
+                </div>
+                <div class="modal-footer flex-column gap-2">
+                    <button type="button" class="btn btn-primary btn-lg w-100" id="btn-confirm-report">
+                        <i class="bi bi-send-fill"></i> <span data-i18n="Modal_Report_Send">Invia segnalazione</span>
+                    </button>
+                    <button type="button" class="btn btn-link text-muted" data-bs-dismiss="modal" data-i18n="Modal_Cancel">Annulla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Request Modal -->
+    <div class="modal fade" id="search-modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="search-modal-title" data-i18n="Modal_Search_Title">Cerca parcheggio in zona</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-3" id="search-modal-desc" data-i18n="Modal_Search_Desc">Inserisci un indirizzo e scegli il raggio di ricerca. Gli altri utenti vedranno la tua richiesta.</p>
+
+                    <div class="mb-3 address-autocomplete-wrap">
+                        <label class="form-label" data-i18n="Modal_Search_Address">Indirizzo</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-lg" id="search-address"
+                                   data-i18n-placeholder="Modal_Search_AddressPh"
+                                   placeholder="Es. Via Roma 1, Milano" autocomplete="off" role="combobox"
+                                   aria-autocomplete="list" aria-expanded="false" aria-controls="address-suggestions">
+                            <button class="btn btn-outline-primary" type="button" id="btn-geocode">
+                                <i class="bi bi-geo-alt"></i>
+                            </button>
+                        </div>
+                        <div id="address-suggestions" class="address-suggestions d-none" role="listbox"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" data-i18n="Modal_Search_Radius">Raggio di ricerca</label>
+                        <select class="form-select form-select-lg" id="search-radius">
+                            <option value="200" data-i18n="Modal_Radius_200">200 metri</option>
+                            <option value="500" selected data-i18n="Modal_Radius_500">500 metri</option>
+                            <option value="1000" data-i18n="Modal_Radius_1000">1 km</option>
+                            <option value="2000" data-i18n="Modal_Radius_2000">2 km</option>
+                            <option value="3000" data-i18n="Modal_Radius_3000">3 km</option>
+                            <option value="5000" data-i18n="Modal_Radius_5000">5 km</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" data-i18n="Modal_Search_Reward">Ricompensa offerta (opzionale)</label>
+                        <div class="input-group">
+                            <span class="input-group-text">€</span>
+                            <input type="number" class="form-control form-control-lg" id="search-reward"
+                                   min="0" max="100" step="0.5" placeholder="5.00">
+                        </div>
+                        <small class="text-muted" data-i18n="Modal_Search_RewardHint">Quanto sei disposto a pagare a chi trova un parcheggio</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" data-i18n="Modal_Search_Payments">Metodi di pagamento accettati</label>
+                        <div id="payment-methods-list" class="payment-methods-grid"></div>
+                        <div id="payment-other-wrap" class="payment-other-wrap d-none mt-2">
+                            <input type="text" class="form-control" id="payment-other-text" maxlength="80"
+                                   data-i18n-placeholder="Modal_Search_PaymentOtherPlaceholder"
+                                   placeholder="Es. Wise, buoni pasto...">
+                        </div>
+                    </div>
+
+                    <div id="geocode-result" class="geocode-result d-none">
+                        <i class="bi bi-check-circle-fill text-success"></i>
+                        <span id="geocode-address-text"></span>
+                    </div>
+                </div>
+                <div class="modal-footer flex-column gap-2">
+                    <button type="button" class="btn btn-warning btn-lg w-100" id="btn-confirm-search">
+                        <i class="bi bi-broadcast" id="search-modal-submit-icon"></i> <span id="search-modal-submit-label" data-i18n="Modal_Search_Publish">Pubblica richiesta</span>
+                    </button>
+                    <button type="button" class="btn btn-link text-muted" data-bs-dismiss="modal" data-i18n="Modal_Cancel">Annulla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Modal -->
+    <div class="modal fade" id="chat-modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down modal-dialog-scrollable chat-modal-dialog">
+            <div class="modal-content chat-modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title mb-0" data-i18n="Modal_Chat_Title">Messaggi richiesta</h5>
+                        <small class="text-muted" id="chat-request-info"></small>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+                </div>
+                <div class="modal-body p-0" id="chat-modal-body">
+                    <div class="chat-layout" id="chat-layout">
+                        <aside id="chat-thread-list" class="chat-thread-panel d-none" aria-label="Conversazioni">
+                            <div class="chat-thread-panel-header" data-i18n="Modal_Chat_ThreadsHeader">Conversazioni</div>
+                            <div class="chat-thread-panel-list" id="chat-thread-panel-list"></div>
+                        </aside>
+                        <div class="chat-main-panel">
+                            <div class="chat-messages" id="chat-messages"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="chat-reserve-bar" class="chat-reserve-bar d-none"></div>
+                <div class="modal-footer chat-input-bar" id="chat-input-bar">
+                    <input type="file" id="chat-photo-input" class="d-none" accept="image/jpeg,image/png,image/webp">
+                    <div class="chat-input-row">
+                        <input type="text" class="form-control" id="chat-input" data-i18n-placeholder="Modal_Chat_Placeholder" placeholder="Scrivi un messaggio..." maxlength="500">
+                        <div class="chat-input-actions">
+                            <button class="btn btn-outline-secondary chat-input-icon-btn" id="btn-send-location" type="button"
+                                    data-i18n="Modal_Chat_SendLocation" data-i18n-attr="title" aria-label="Invia posizione">
+                                <i class="bi bi-crosshair"></i>
+                            </button>
+                            <button class="btn btn-outline-secondary chat-input-icon-btn" id="btn-send-photo" type="button"
+                                    data-i18n="Modal_Chat_SendPhoto" data-i18n-attr="title" aria-label="Invia foto">
+                                <i class="bi bi-image"></i>
+                            </button>
+                            <button class="btn btn-primary chat-input-icon-btn" id="btn-send-message" type="button" aria-label="Invia">
+                                <i class="bi bi-send-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Parking Detail Modal -->
+    <div class="modal fade" id="parking-detail-modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" data-i18n="Modal_ParkingDetail_Title">Dettaglio segnalazione</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="parking-detail-photo-wrap" class="parking-detail-photo-wrap d-none">
+                        <img id="parking-detail-photo" class="parking-detail-photo" alt="">
+                    </div>
+                    <p id="parking-detail-no-photo" class="parking-detail-no-photo text-muted d-none"
+                       data-i18n="Modal_ParkingDetail_NoPhoto">Nessuna foto allegata</p>
+                    <div id="parking-detail-meta" class="parking-detail-meta"></div>
+                    <div id="parking-detail-info-section" class="parking-detail-info-section d-none"></div>
+                </div>
+                <div id="parking-detail-vote-section" class="modal-footer parking-detail-vote-footer d-none flex-column align-items-stretch">
+                    <p class="mb-2 w-100" data-i18n="Modal_Vote_Question">Il parcheggio segnalato è ancora libero?</p>
+                    <div class="d-grid gap-2 w-100">
+                        <button type="button" class="btn btn-success btn-lg" id="btn-detail-vote-valid">
+                            <i class="bi bi-check-circle"></i> <span data-i18n="Modal_Vote_Yes">Sì, confermo</span>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-lg" id="btn-detail-vote-invalid">
+                            <i class="bi bi-x-circle"></i> <span data-i18n="Modal_Vote_No">No, non c'è</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="parking-detail-voted-section" class="modal-footer parking-detail-vote-footer d-none">
+                    <p class="mb-0 text-muted w-100" id="parking-detail-voted-text"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile / Reviews Modal -->
+    <div class="modal fade" id="profile-modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="profile-modal-title" data-i18n="Profile_Title">Profilo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="profile-summary" class="profile-summary mb-3"></div>
+                    <input type="file" id="profile-photo-input" class="d-none" accept="image/jpeg,image/png,image/webp">
+
+                    <ul class="nav nav-pills nav-fill profile-tabs mb-3 d-none" id="profile-tabs">
+                        <li class="nav-item">
+                            <button type="button" class="nav-link" id="profile-tab-password-btn" data-profile-tab="password" data-i18n="Profile_TabPassword">Password</button>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" class="nav-link active" id="profile-tab-ratings-btn" data-profile-tab="ratings" data-i18n="Profile_TabRatings">Valutazioni</button>
+                        </li>
+                    </ul>
+
+                    <div id="profile-tab-password" class="profile-tab-pane d-none">
+                        <form id="profile-password-form">
+                            <div class="mb-2">
+                                <label class="form-label" for="profile-current-password" data-i18n="Profile_CurrentPassword">Password attuale</label>
+                                <input type="password" class="form-control" id="profile-current-password" required autocomplete="current-password">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="profile-new-password" data-i18n="Profile_NewPassword">Nuova password</label>
+                                <input type="password" class="form-control" id="profile-new-password" minlength="6" required autocomplete="new-password">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="profile-confirm-password" data-i18n="Profile_ConfirmPassword">Conferma nuova password</label>
+                                <input type="password" class="form-control" id="profile-confirm-password" minlength="6" required autocomplete="new-password">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100" data-i18n="Profile_SavePassword">Aggiorna password</button>
+                        </form>
+                    </div>
+
+                    <div id="profile-tab-ratings" class="profile-tab-pane">
+                        <div id="profile-reviews-list" class="profile-reviews-list mb-3"></div>
+
+                        <div id="profile-add-review-section" class="profile-add-review-section d-none">
+                            <h6 class="profile-section-title" data-i18n="Profile_AddReview">Lascia una valutazione</h6>
+                            <p class="text-muted small mb-2" id="profile-eligible-hint"></p>
+                            <div class="mb-2">
+                                <label class="form-label" data-i18n="Profile_ReviewRating">Valutazione</label>
+                                <div id="profile-review-stars" class="profile-stars" role="group" aria-label="Rating">
+                                    <button type="button" class="profile-star-btn" data-rating="1" aria-label="1"><i class="bi bi-star"></i></button>
+                                    <button type="button" class="profile-star-btn" data-rating="2" aria-label="2"><i class="bi bi-star"></i></button>
+                                    <button type="button" class="profile-star-btn" data-rating="3" aria-label="3"><i class="bi bi-star"></i></button>
+                                    <button type="button" class="profile-star-btn" data-rating="4" aria-label="4"><i class="bi bi-star"></i></button>
+                                    <button type="button" class="profile-star-btn" data-rating="5" aria-label="5"><i class="bi bi-star"></i></button>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="profile-review-comment" data-i18n="Profile_ReviewComment">Commento (opzionale)</label>
+                                <textarea class="form-control" id="profile-review-comment" rows="3" maxlength="500"
+                                          data-i18n-placeholder="Profile_ReviewCommentPh"
+                                          placeholder="Es. paga puntualmente, segnalazione corretta..."></textarea>
+                            </div>
+                            <button type="button" class="btn btn-success w-100" id="btn-submit-review" data-i18n="Profile_SubmitReview">Pubblica valutazione</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="modal fade" id="confirm-delete-modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content confirm-delete-modal-content">
+                <div class="modal-body text-center py-4 px-4">
+                    <div class="confirm-delete-icon" aria-hidden="true">
+                        <i class="bi bi-trash3"></i>
+                    </div>
+                    <h4 class="confirm-delete-title" data-i18n="Modal_ConfirmDelete_Title">Conferma eliminazione</h4>
+                    <p class="confirm-delete-message text-muted mb-0" id="confirm-delete-message"></p>
+                </div>
+                <div class="modal-footer border-0 pt-0 pb-4 px-4 flex-column gap-2">
+                    <button type="button" class="btn btn-danger btn-lg w-100" id="btn-confirm-delete">
+                        <i class="bi bi-trash3"></i> <span data-i18n="Modal_ConfirmDelete_Btn">Elimina</span>
+                    </button>
+                    <button type="button" class="btn btn-link text-muted" data-bs-dismiss="modal" data-i18n="Modal_Cancel">Annulla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Suspended Account Modal -->
+    <div class="modal fade" id="suspended-modal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content suspended-modal-content">
+                <div class="modal-body text-center py-4 px-4">
+                    <div class="suspended-modal-icon" aria-hidden="true">
+                        <i class="bi bi-shield-lock-fill"></i>
+                    </div>
+                    <h4 class="suspended-modal-title" data-i18n="Account_Suspended_Modal_Title">Il tuo account è sospeso</h4>
+                    <p class="suspended-modal-body text-muted mb-3" id="suspended-modal-body" data-i18n="Account_Suspended_Modal_Body">
+                        Attività sospette rilevate. Puoi consultare la mappa e gestire i contenuti esistenti, ma non pubblicare nuove segnalazioni o annunci fino alla scadenza della sospensione.
+                    </p>
+                    <div class="suspended-modal-until" id="suspended-modal-until"></div>
+                    <div class="suspended-modal-countdown" id="suspended-modal-countdown">--:--</div>
+                </div>
+                <div class="modal-footer border-0 pt-0 pb-4 px-4">
+                    <button type="button" class="btn btn-warning btn-lg w-100" id="suspended-modal-ok" data-bs-dismiss="modal" data-i18n="Account_Suspended_Modal_Ok">Ho capito</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+    <script src="/js/i18n.js?v=65"></script>
+    <script type="module" src="/js/app.js?v=65"></script>
+</body>
+</html>
