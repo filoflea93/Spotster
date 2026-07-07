@@ -22,15 +22,18 @@ public class UserReviewService : IUserReviewService
 
     private readonly IUserRepository _users;
     private readonly IUserReviewRepository _reviews;
+    private readonly IParkingRepository _parking;
     private readonly IStringLocalizer<SharedResources> _localizer;
 
     public UserReviewService(
         IUserRepository users,
         IUserReviewRepository reviews,
+        IParkingRepository parking,
         IStringLocalizer<SharedResources> localizer)
     {
         _users = users;
         _reviews = reviews;
+        _parking = parking;
         _localizer = localizer;
     }
 
@@ -51,7 +54,8 @@ public class UserReviewService : IUserReviewService
     {
         var user = await _users.GetByIdAsync(reviewedUserId);
         var (totalStars, count) = await _reviews.GetSummaryAsync(reviewedUserId);
-        return new UserReviewSummaryDto(totalStars, count, user?.ProfilePhotoUrl);
+        var thumbsUp = await _parking.CountValidThumbsUpReceivedAsync(reviewedUserId);
+        return new UserReviewSummaryDto(totalStars + thumbsUp, count, user?.ProfilePhotoUrl);
     }
 
     public async Task<PagedResult<UserReviewDto>> GetReviewsAsync(

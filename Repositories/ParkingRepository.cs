@@ -113,6 +113,11 @@ public class ParkingRepository : IParkingRepository
     public Task<int> CountActiveAsync() =>
         _db.ParkingReports.CountAsync(p => p.Status == ParkingStatus.Active && p.ExpiresAt > DateTime.UtcNow);
 
+    public Task<int> CountValidThumbsUpReceivedAsync(Guid userId) =>
+        _db.ReportVotes.CountAsync(v =>
+            v.IsValid &&
+            v.ParkingReport.CreatedByUserId == userId);
+
     public async Task AddAsync(ParkingReport report) => await _db.ParkingReports.AddAsync(report);
 
     public async Task AddVoteAsync(ReportVote vote) => await _db.ReportVotes.AddAsync(vote);

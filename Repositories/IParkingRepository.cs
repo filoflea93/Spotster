@@ -16,6 +16,7 @@ public interface IParkingRepository
     Task<ParkingReport?> FindActiveInZoneAsync(string zoneKey);
     Task<int> CountReportsTodayAsync();
     Task<int> CountActiveAsync();
+    Task<int> CountValidThumbsUpReceivedAsync(Guid userId);
     Task AddAsync(ParkingReport report);
     Task AddVoteAsync(ReportVote vote);
     void Delete(ParkingReport report);

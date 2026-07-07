@@ -227,6 +227,11 @@ public class ParkingService : IParkingService
         await _parking.SaveChangesAsync();
         await _cache.InvalidateAsync();
 
+        if (request.IsValid)
+        {
+            await _notifier.NotifyUserAsync(report.CreatedByUserId, "AccountRatingUpdated", null);
+        }
+
         var dto = ParkingMapper.ToDto(report, userId);
         await _notifier.BroadcastMapEventAsync(
             report.Latitude, report.Longitude, "ParkingUpdated", ParkingMapper.ToSignalDto(report));

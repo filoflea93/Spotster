@@ -50,6 +50,10 @@ function connectSignalR() {
         hub.loadParkings();
     });
 
+    state.connection.on('AccountRatingUpdated', () => {
+        hub.refreshReviewStarsDisplay();
+    });
+
     state.connection.on('ParkingExpired', p => {
         const idx = state.parkings.findIndex(x => x.id === p.id);
         if (idx >= 0) state.parkings.splice(idx, 1);
