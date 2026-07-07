@@ -29,6 +29,25 @@ On first startup, demo users are created (if not already present):
 
 Register a new account from the login screen if you prefer not to use the demo users.
 
+## Registration
+
+New accounts are created from the **Registrati** tab on the login screen.
+
+**Required fields:** first name, last name, email, date of birth (minimum age **18**), username, password (min. **6** characters).
+
+**Flow:**
+
+1. `POST /api/auth/register` — account is created with `EmailConfirmed = false` (no JWT issued).
+2. A confirmation email is sent (SMTP required in production).
+3. User clicks the link → `GET /api/auth/confirm-email?userId=&code=` → redirect to `/?emailConfirmed=1`.
+4. User logs in via `POST /api/auth/login` — JWT access + refresh tokens are returned only after email confirmation.
+
+If login fails with *email not confirmed*, the UI shows **Resend confirmation email** (`POST /api/auth/resend-confirmation`).
+
+**Local development without SMTP:** registration still succeeds; the confirmation link is written to the application log (see `EmailSender`). Copy the link from the console to confirm the account.
+
+Demo users (`demo1`–`demo3`) skip email confirmation and can log in immediately.
+
 ## Main features
 
 ### Map and dashboard
@@ -81,7 +100,7 @@ Register a new account from the login screen if you prefer not to use the demo u
 
 ### Security and infrastructure
 
-- **Email confirmation** required on registration (resend available); SMTP configurable for production
+- **Email confirmation** required before first login (`RequireConfirmedEmail`); registration does **not** return tokens — only login after confirmation does; resend available from UI and API; bilingual confirmation email (IT/EN)
 - Anti-fraud: rate limiting on reports, geo anti-spoofing, temporary **account suspensions**
 - **Distributed cache** (Redis when configured, in-memory fallback) for active listings and IP rate limits
 - **SQL Server spatial queries** (`geography`) for nearby parking and requests
@@ -130,7 +149,7 @@ Protected requests require the header:
 Authorization: Bearer {accessToken}
 ```
 
-**Login / registration** return:
+**Login** (`POST /api/auth/login`) returns tokens only if the email is confirmed:
 
 ```json
 {
@@ -150,14 +169,23 @@ Authorization: Bearer {accessToken}
 }
 ```
 
+**Registration** (`POST /api/auth/register`) returns a pending message (no tokens):
+
+```json
+{
+  "message": "Registration complete. Check your email and click the link to activate your account.",
+  "email": "f***o@gmail.com"
+}
+```
+
 | Endpoint | Auth | Description |
 |----------|------|-------------|
-| `POST /api/auth/register` | No | Create account (email confirmation required), return tokens |
-| `POST /api/auth/login` | No | Login, return tokens |
+| `POST /api/auth/register` | No | Create account (first name, last name, email, date of birth, username, password). Sends confirmation email. Returns message + masked email — **no JWT** |
+| `POST /api/auth/login` | No | Login (email must be confirmed). Returns access + refresh tokens |
 | `POST /api/auth/refresh` | No | Body: `{ "refreshToken": "..." }` — new access + refresh (rotation) |
 | `POST /api/auth/logout` | Yes | Body: `{ "refreshToken": "..." }` — revoke refresh token |
-| `GET /api/auth/confirm-email` | No | Email confirmation link (query: `userId`, `token`) |
-| `POST /api/auth/resend-confirmation` | No | Body: `{ "email": "..." }` — resend confirmation email |
+| `GET /api/auth/confirm-email` | No | Email confirmation link (query: `userId`, `code`). Redirects to `/?emailConfirmed=1` or `/?emailConfirmError=1` |
+| `POST /api/auth/resend-confirmation` | No | Body: `{ "email": "..." }` — resend confirmation email (always `204`, even if email unknown or already confirmed) |
 | `GET /api/auth/me` | Yes | Current user profile |
 
 **Token lifetime** (configurable in `appsettings.json` → `Jwt` section):
@@ -298,7 +326,8 @@ Photos are stored under `wwwroot/uploads` by default. For cloud or multi-instanc
 
 - `Jwt:Key` — minimum 32 characters; never commit production keys to source control
 - `Smtp` — required for registration confirmation emails in production
-- `App:PublicBaseUrl` — public URL used in confirmation email links
+- Without SMTP configured, confirmation emails are **not sent** but registration is not blocked — the HTML body (including the confirmation URL) is logged at `Information` level for local testing
+- `App:PublicBaseUrl` must match the public URL users reach (used in confirmation email links)
 
 ### Rate limits (built-in)
 
@@ -338,3 +367,4 @@ Browsers call `SetMapViewport(lat, lng, radius)` to join map grid groups and rec
 - Request reward made **optional** (listings without reward)
 - Bilingual product presentation (`presentazione.html`)
 - New tagline: *Free parking spots, shared by the community*
+- **Registration docs**: clarified email-confirmation flow (no JWT on register, login after confirm, dev SMTP fallback via logs)

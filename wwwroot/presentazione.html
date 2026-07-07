@@ -498,8 +498,15 @@
                         <div class="feature-icon icon-green"><i class="bi bi-box-arrow-in-right"></i></div>
                         <h3 class="lang-it">Registrazione e login</h3>
                         <h3 class="lang-en">Sign up &amp; login</h3>
-                        <p class="lang-it">Account con username e password. <strong>Conferma email</strong> obbligatoria prima del primo accesso (reinvio disponibile). Login con <strong>JWT</strong> (access + refresh token) su <strong>ASP.NET Identity</strong>. La sessione si rinnova in automatico; logout con revoca del refresh token.</p>
-                        <p class="lang-en">Accounts with username and password. <strong>Email confirmation</strong> required before first login (resend available). <strong>JWT</strong> login (access + refresh tokens) with <strong>ASP.NET Identity</strong>. Session renews automatically; logout revokes the refresh token.</p>
+                        <p class="lang-it">Registrazione con <strong>nome, cognome, email, data di nascita</strong> (minimo <strong>18 anni</strong>), username e password. Dopo l'invio <strong>non si accede subito</strong>: arriva un'email di conferma (reinvio disponibile dall'interfaccia). Solo dopo il click sul link l'account è attivo e si può fare <strong>login</strong> con <strong>JWT</strong> (access + refresh token) su <strong>ASP.NET Identity</strong>. La sessione si rinnova in automatico; logout con revoca del refresh token.</p>
+                        <p class="lang-en">Sign up with <strong>first name, last name, email, date of birth</strong> (minimum age <strong>18</strong>), username and password. After submit you <strong>cannot log in yet</strong>: a confirmation email is sent (resend available in the UI). Only after clicking the link is the account active and <strong>login</strong> issues <strong>JWT</strong> access + refresh tokens via <strong>ASP.NET Identity</strong>. Session renews automatically; logout revokes the refresh token.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-warn"><i class="bi bi-envelope-check-fill"></i></div>
+                        <h3 class="lang-it">Conferma email</h3>
+                        <h3 class="lang-en">Email confirmation</h3>
+                        <p class="lang-it">Link nell'email → conferma via API → redirect all'app con messaggio di successo. In sviluppo, senza SMTP configurato, il link viene scritto nei <strong>log</strong> del server. In produzione serve SMTP e URL pubblico (<code>App:PublicBaseUrl</code>).</p>
+                        <p class="lang-en">Email link → API confirmation → redirect to the app with a success message. In development, without SMTP, the link is written to server <strong>logs</strong>. Production requires SMTP and a public URL (<code>App:PublicBaseUrl</code>).</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon icon-blue"><i class="bi bi-camera-fill"></i></div>
@@ -846,10 +853,10 @@
                     <h2 class="lang-it">Pronto a provare Spotster?</h2>
                     <h2 class="lang-en">Ready to try Spotster?</h2>
                     <p class="lang-it" style="color:var(--text-muted);max-width:480px;margin:0 auto;">
-                        Avvia l'applicazione, registrati e inizia a segnalare o cercare parcheggi nella tua zona.
+                        Avvia l'applicazione, registrati, conferma l'email e inizia a segnalare o cercare parcheggi nella tua zona. Oppure usa gli account demo per provare subito.
                     </p>
                     <p class="lang-en" style="color:var(--text-muted);max-width:480px;margin:0 auto;">
-                        Launch the app, sign up and start reporting or searching for parking in your area.
+                        Launch the app, sign up, confirm your email, and start reporting or searching for parking in your area. Or use the demo accounts to try it immediately.
                     </p>
                     <a href="/" class="cta-btn">
                         <i class="bi bi-box-arrow-up-right"></i>
