@@ -365,6 +365,15 @@ Browsers call `SetMapViewport(lat, lng, radius)` to join map grid groups and rec
 4. HTTPS termination and `Jwt:Key` / SMTP via secrets
 5. CDN optional for static assets and blob `PublicBaseUrl`
 
+### Capacity notes (honest expectations)
+
+- **Not load-tested in production.** Throughput figures below are architectural estimates, not benchmark results.
+- **Default dev setup** (LocalDB, single instance, in-memory cache) is fine for development and demos only — expect on the order of **hundreds** of concurrent users at most, not thousands.
+- **Production path:** follow the multi-instance checklist above. With managed SQL Server, Redis, blob storage, and **2+ app instances**, the design targets **city-scale** traffic (e.g. thousands of registered users with hundreds to low thousands concurrent in one metro area), assuming listings expire via TTL and clients use zone-scoped queries.
+- **Prefer `GET /api/parking/nearby`** (paginated, spatial) over **`GET /api/parking/active`** (global list) as active report volume grows.
+- **Geocoding** is rate-limited to **40 requests/minute** per IP — a bottleneck if many users search addresses simultaneously without caching on the client.
+- **Registered users ≠ concurrent users.** The architecture is a reasonable base for growth, but validating real limits requires load testing (e.g. k6 on `/nearby`, SignalR `SetMapViewport`, and write endpoints) on your production stack.
+
 ## Recent changes (June 2026)
 
 - **Frontend modularization**: monolithic `app.js` split into ES modules (`core/`, `features/`, `adapters/`, `app/`) with shared `hub` and `map-engine` abstraction over Leaflet
@@ -385,3 +394,4 @@ Browsers call `SetMapViewport(lat, lng, radius)` to join map grid groups and rec
 - New tagline: *Free parking spots, shared by the community*
 - **Registration docs**: clarified email-confirmation flow (no JWT on register, login after confirm, dev SMTP fallback via logs)
 - **Swagger / OpenAPI**: interactive docs at `/swagger`, mobile bootstrap at `GET /api/app/config`
+- **Capacity notes** in README: honest scalability expectations, `/nearby` vs `/active`, no production load tests yet
