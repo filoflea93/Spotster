@@ -54,6 +54,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Create a parking search request with address, radius, and optional reward.</summary>
     [Authorize]
     [HttpPost("request")]
     public async Task<ActionResult<ParkingRequestDto>> CreateRequest([FromBody] CreateParkingSearchRequest body)
@@ -67,12 +68,14 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>List supported payment methods for optional request rewards.</summary>
     [AllowAnonymous]
     [DisableRateLimiting]
     [HttpGet("payment-methods")]
     public ActionResult<IReadOnlyList<PaymentMethodOptionDto>> GetPaymentMethods() =>
         Ok(_messagingService.GetPaymentMethodOptions());
 
+    /// <summary>List chat threads for a request (owner sees all participants).</summary>
     [Authorize]
     [DisableRateLimiting]
     [HttpGet("requests/{requestId:guid}/conversations")]
@@ -82,6 +85,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Get messages in a request chat thread. Use query `with` for the other participant.</summary>
     [Authorize]
     [DisableRateLimiting]
     [HttpGet("requests/{requestId:guid}/messages")]
@@ -93,6 +97,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Send a text message in a request chat.</summary>
     [Authorize]
     [HttpPost("requests/{requestId:guid}/messages")]
     public async Task<ActionResult<RequestMessageDto>> SendMessage(
@@ -103,6 +108,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Send a photo message in a request chat (multipart).</summary>
     [Authorize]
     [HttpPost("requests/{requestId:guid}/messages/photo")]
     public async Task<ActionResult<RequestMessageDto>> SendPhotoMessage(
@@ -114,6 +120,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Resolve an address to coordinates for a parking request.</summary>
     [AllowAnonymous]
     [EnableRateLimiting("geocode")]
     [HttpGet("geocode")]
@@ -123,6 +130,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Address autocomplete suggestions (min. 3 characters).</summary>
     [AllowAnonymous]
     [EnableRateLimiting("geocode")]
     [HttpGet("geocode/suggest")]
@@ -140,6 +148,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Extend the expiration time of your parking request.</summary>
     [Authorize]
     [HttpPost("requests/{requestId:guid}/renew")]
     public async Task<ActionResult<ParkingRequestDto>> RenewRequest(Guid requestId)
@@ -148,6 +157,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Mark a request as in negotiation / reserved for a guest user.</summary>
     [Authorize]
     [HttpPost("requests/{requestId:guid}/reserve")]
     public async Task<ActionResult<ParkingRequestDto>> ReserveRequest(
@@ -161,6 +171,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Cancel negotiation / reservation on your request.</summary>
     [Authorize]
     [HttpPost("requests/{requestId:guid}/unreserve")]
     public async Task<ActionResult<ParkingRequestDto>> UnreserveRequest(Guid requestId)
@@ -169,6 +180,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Block a user from messaging on your request.</summary>
     [Authorize]
     [HttpPost("requests/{requestId:guid}/block")]
     public async Task<IActionResult> BlockGuest(
@@ -179,6 +191,7 @@ public class ParkingController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>Unblock a previously blocked user on your request.</summary>
     [Authorize]
     [HttpPost("requests/{requestId:guid}/unblock")]
     public async Task<IActionResult> UnblockGuest(
@@ -189,6 +202,7 @@ public class ParkingController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>Update your parking request (address, radius, reward).</summary>
     [Authorize]
     [HttpPut("requests/{requestId:guid}")]
     public async Task<ActionResult<ParkingRequestDto>> UpdateRequest(
@@ -199,6 +213,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>List active parking requests near a map point.</summary>
     [AllowAnonymous]
     [DisableRateLimiting]
     [HttpGet("requests/nearby")]
@@ -211,6 +226,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>List your active parking requests.</summary>
     [Authorize]
     [DisableRateLimiting]
     [HttpGet("requests/mine")]
@@ -220,6 +236,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>List your active parking reports.</summary>
     [Authorize]
     [DisableRateLimiting]
     [HttpGet("reports/mine")]
@@ -229,6 +246,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>List all active free-parking reports (global).</summary>
     [AllowAnonymous]
     [DisableRateLimiting]
     [HttpGet("active")]
@@ -238,6 +256,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>List free-parking reports near a map point (paginated).</summary>
     [AllowAnonymous]
     [DisableRateLimiting]
     [HttpGet("nearby")]
@@ -252,6 +271,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Delete your parking report.</summary>
     [Authorize]
     [HttpDelete("report/{reportId:guid}")]
     public async Task<IActionResult> DeleteReport(Guid reportId)
@@ -260,6 +280,7 @@ public class ParkingController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>Delete your parking request.</summary>
     [Authorize]
     [HttpDelete("requests/{requestId:guid}")]
     public async Task<IActionResult> DeleteRequest(Guid requestId)
@@ -268,6 +289,7 @@ public class ParkingController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>Vote confirm or deny on a community parking report.</summary>
     [Authorize]
     [HttpPost("vote")]
     public async Task<ActionResult<ParkingReportDto>> Vote([FromBody] VoteRequest request)

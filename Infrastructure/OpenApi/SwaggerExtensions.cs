@@ -23,6 +23,9 @@ public static class SwaggerExtensions
                     "**Real-time:** SignalR hub at `/hubs/parking` (see `GET /api/app/config` for hub methods and server events)."
             });
 
+            // ApiExplorerSettings(GroupName) is used for Swagger tags, not to filter docs by name.
+            options.DocInclusionPredicate((_, _) => true);
+
             options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
             {
                 Name = "Authorization",

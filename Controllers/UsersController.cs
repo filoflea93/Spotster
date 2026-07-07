@@ -38,6 +38,7 @@ public class UsersController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Search users by username (authenticated).</summary>
     [Authorize]
     [HttpGet("search")]
     public async Task<ActionResult<IReadOnlyList<UserSearchResultDto>>> SearchUsers(
@@ -48,6 +49,7 @@ public class UsersController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Change password for the authenticated user.</summary>
     [Authorize]
     [HttpPut("me/password")]
     public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
@@ -56,6 +58,7 @@ public class UsersController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>Update last known GPS position for anti-fraud and map features.</summary>
     [Authorize]
     [HttpPut("me/location")]
     public async Task<ActionResult<AuthResponse>> SyncLocation([FromBody] UpdateLocationRequest request)
@@ -64,6 +67,7 @@ public class UsersController : ControllerBase
         return Ok(profile);
     }
 
+    /// <summary>Upload or replace profile photo (multipart).</summary>
     [Authorize]
     [HttpPost("me/profile-photo")]
     public async Task<ActionResult<ProfilePhotoResponse>> UploadProfilePhoto(IFormFile photo)
@@ -72,6 +76,7 @@ public class UsersController : ControllerBase
         return Ok(new ProfilePhotoResponse(photoUrl));
     }
 
+    /// <summary>Remove profile photo.</summary>
     [Authorize]
     [HttpDelete("me/profile-photo")]
     public async Task<IActionResult> DeleteProfilePhoto()
@@ -80,6 +85,7 @@ public class UsersController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>Public user profile by id.</summary>
     [AllowAnonymous]
     [HttpGet("{userId:guid}/profile")]
     public async Task<ActionResult<UserProfileDto>> GetProfile(Guid userId)
@@ -88,6 +94,7 @@ public class UsersController : ControllerBase
         return Ok(profile);
     }
 
+    /// <summary>Star rating summary for a user (includes community thumbs-up).</summary>
     [AllowAnonymous]
     [HttpGet("{userId:guid}/reviews/summary")]
     public async Task<ActionResult<UserReviewSummaryDto>> GetReviewSummary(Guid userId)
@@ -96,6 +103,7 @@ public class UsersController : ControllerBase
         return Ok(summary);
     }
 
+    /// <summary>Paginated reviews received by a user.</summary>
     [AllowAnonymous]
     [HttpGet("{userId:guid}/reviews")]
     public async Task<ActionResult<PagedResult<UserReviewDto>>> GetReviews(
@@ -107,6 +115,7 @@ public class UsersController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Check whether you can review another user (after shared chat).</summary>
     [Authorize]
     [HttpGet("{userId:guid}/reviews/status")]
     public async Task<ActionResult<UserReviewStatusDto>> GetReviewStatus(Guid userId)
@@ -115,6 +124,7 @@ public class UsersController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>Submit a star review for another user.</summary>
     [Authorize]
     [HttpPost("{userId:guid}/reviews")]
     public async Task<ActionResult<UserReviewDto>> CreateReview(
