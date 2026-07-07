@@ -10,6 +10,8 @@ using Spotster.Infrastructure.Auth;
 
 using Spotster.Infrastructure.Json;
 
+using Spotster.Infrastructure.OpenApi;
+
 using Spotster.Infrastructure.Redis;
 
 using Spotster.Infrastructure.Storage;
@@ -82,6 +84,7 @@ builder.Services.AddControllers()
 
 
 
+builder.Services.AddSpotsterSwagger();
 
 
 
@@ -299,9 +302,17 @@ builder.Services.AddHostedService<ParkingRequestCacheRefreshService>();
 
 var app = builder.Build();
 
+var swaggerEnabled = app.Environment.IsDevelopment()
+    || app.Configuration.GetValue("Swagger:Enabled", false);
+
 
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
+
+if (swaggerEnabled)
+{
+    app.UseSpotsterSwagger();
+}
 
 var locOptions = app.Services.GetRequiredService<Microsoft.Extensions.Options.IOptions<RequestLocalizationOptions>>().Value;
 app.UseRequestLocalization(locOptions);

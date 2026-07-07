@@ -4,9 +4,11 @@ namespace Spotster.Services.Localization;
 
 public class HeaderCultureProvider : IRequestCultureProvider
 {
+    public const string HeaderName = "X-Culture";
+
     public Task<ProviderCultureResult?> DetermineProviderCultureResult(HttpContext httpContext)
     {
-        var culture = httpContext.Request.Headers["X-Culture"].FirstOrDefault();
+        var culture = httpContext.Request.Headers[HeaderName].FirstOrDefault();
         if (string.IsNullOrWhiteSpace(culture))
         {
             return Task.FromResult<ProviderCultureResult?>(null);

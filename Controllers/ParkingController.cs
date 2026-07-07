@@ -9,8 +9,10 @@ using Microsoft.AspNetCore.RateLimiting;
 
 namespace Spotster.Controllers;
 
+/// <summary>Parking reports, requests, geocoding, voting, and request messaging.</summary>
 [ApiController]
 [Route("api/parking")]
+[ApiExplorerSettings(GroupName = "Parking")]
 [EnableRateLimiting("write")]
 public class ParkingController : ControllerBase
 {
@@ -28,6 +30,7 @@ public class ParkingController : ControllerBase
         _messagingService = messagingService;
     }
 
+    /// <summary>Report free parking with photo (multipart: lat, lng, photo).</summary>
     [Authorize]
     [HttpPost("report")]
     [RequestSizeLimit(5 * 1024 * 1024)]

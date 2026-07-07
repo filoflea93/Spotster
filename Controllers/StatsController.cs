@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Spotster.Controllers;
 
+/// <summary>Public system metrics (users, reports, moderation counts).</summary>
 [ApiController]
 [Route("api/stats")]
+[ApiExplorerSettings(GroupName = "Stats")]
 public class StatsController : ControllerBase
 {
     private readonly IStatsService _statsService;
@@ -15,7 +17,9 @@ public class StatsController : ControllerBase
         _statsService = statsService;
     }
 
+    /// <summary>Aggregate counts for the last 24 hours and active listings.</summary>
     [HttpGet("system")]
+    [ProducesResponseType(typeof(SystemStatsDto), StatusCodes.Status200OK)]
     public async Task<ActionResult<SystemStatsDto>> GetSystemStats()
     {
         var stats = await _statsService.GetSystemStatsAsync();

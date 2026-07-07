@@ -1,22 +1,25 @@
-using System.Globalization;
-using System.Resources;
-using Spotster.Resources;
+using Spotster.DTOs;
+using Spotster.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Spotster.Controllers;
 
+/// <summary>Localized UI strings for web and mobile clients.</summary>
 [ApiController]
 [Route("api/localization")]
+[ApiExplorerSettings(GroupName = "Localization")]
 public class LocalizationController : ControllerBase
 {
-    private static readonly ResourceManager ResourceManager =
-        new(typeof(SharedResources).FullName!, typeof(SharedResources).Assembly);
+    private static readonly System.Resources.ResourceManager ResourceManager =
+        new(typeof(Resources.SharedResources).FullName!, typeof(Resources.SharedResources).Assembly);
 
+    /// <summary>All translation keys for a culture (`it` or `en`).</summary>
     [HttpGet("strings")]
+    [ProducesResponseType(typeof(Dictionary<string, string>), StatusCodes.Status200OK)]
     public ActionResult<Dictionary<string, string>> GetStrings([FromQuery] string? culture)
     {
         var cultureName = NormalizeCulture(culture);
-        var cultureInfo = CultureInfo.GetCultureInfo(cultureName);
+        var cultureInfo = System.Globalization.CultureInfo.GetCultureInfo(cultureName);
         var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         var resourceSet = ResourceManager.GetResourceSet(cultureInfo, createIfNotExists: true, tryParents: true);

@@ -139,6 +139,21 @@ Modules share a **`hub`** object (dependency injection by convention): each `reg
 
 Standalone file at `wwwroot/presentazione.html`: visual overview of all features, Spotster styling, IT/EN language switch.
 
+## Swagger (OpenAPI)
+
+In **Development**, interactive API docs are available at:
+
+| URL | Description |
+|-----|-------------|
+| http://localhost:5124/swagger | Swagger UI (try endpoints, JWT authorize) |
+| http://localhost:5124/swagger/v1/swagger.json | OpenAPI 3 JSON schema |
+
+**Authorize in Swagger:** call `POST /api/auth/login`, copy `accessToken`, click **Authorize**, enter `Bearer {token}`.
+
+**Mobile client bootstrap:** `GET /api/app/config` — public base URL, SignalR hub path, auth/geo limits, rate limits, and server event names.
+
+Set `"Swagger": { "Enabled": true }` in `appsettings.json` (or environment) to expose Swagger outside Development.
+
 ## Main API
 
 ### Authentication (JWT)
@@ -202,6 +217,7 @@ Authorization: Bearer {accessToken}
 ### Auth (route summary)
 
 ```
+GET    /api/app/config
 POST   /api/auth/register
 POST   /api/auth/login
 POST   /api/auth/refresh
@@ -368,3 +384,4 @@ Browsers call `SetMapViewport(lat, lng, radius)` to join map grid groups and rec
 - Bilingual product presentation (`presentazione.html`)
 - New tagline: *Free parking spots, shared by the community*
 - **Registration docs**: clarified email-confirmation flow (no JWT on register, login after confirm, dev SMTP fallback via logs)
+- **Swagger / OpenAPI**: interactive docs at `/swagger`, mobile bootstrap at `GET /api/app/config`

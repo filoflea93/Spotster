@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Spotster.Controllers;
 
+/// <summary>User profiles, search, reviews, password, location, and profile photo.</summary>
 [ApiController]
 [Route("api/users")]
+[ApiExplorerSettings(GroupName = "Users")]
 public class UsersController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -25,6 +27,7 @@ public class UsersController : ControllerBase
         _authService = authService;
     }
 
+    /// <summary>Public reputation leaderboard.</summary>
     [AllowAnonymous]
     [HttpGet("leaderboard")]
     public async Task<ActionResult<PagedResult<LeaderboardEntryDto>>> GetLeaderboard(
