@@ -14,6 +14,7 @@ public interface IParkingRepository
     Task<int> CountActiveReportsByUserAsync(Guid userId);
     Task<int> CountRecentReportsAtZoneAsync(Guid userId, string zoneKey, DateTime since);
     Task<ParkingReport?> FindActiveInZoneAsync(string zoneKey);
+    Task<ParkingReport?> FindNearestActiveAsync(double latitude, double longitude, double radiusMeters);
     Task<int> CountReportsTodayAsync();
     Task<int> CountActiveAsync();
     Task<int> CountValidThumbsUpReceivedAsync(Guid userId);

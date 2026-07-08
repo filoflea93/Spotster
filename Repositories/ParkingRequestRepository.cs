@@ -1,4 +1,5 @@
 using Spotster.Data;
+using Spotster.Domain;
 using Spotster.Domain.Geo;
 using Spotster.Entities;
 using Spotster.Infrastructure.Geo;
@@ -27,10 +28,12 @@ public class ParkingRequestRepository : IParkingRequestRepository
     public Task<List<ParkingRequest>> GetActiveAsync() =>
         _db.ParkingRequests
             .AsNoTracking()
+            .AsSplitQuery()
             .Include(r => r.CreatedByUser)
             .Include(r => r.ReservedByUser)
             .Where(r => LiveStatuses.Contains(r.Status) && r.ExpiresAt > DateTime.UtcNow)
             .OrderByDescending(r => r.CreatedAt)
+            .Take(ListingConstants.MaxActiveListSize)
             .ToListAsync();
 
     public async Task<List<ParkingRequest>> GetNearbyAsync(double latitude, double longitude, double searchRadiusMeters)
@@ -41,6 +44,7 @@ public class ParkingRequestRepository : IParkingRequestRepository
 
         var candidates = await _db.ParkingRequests
             .AsNoTracking()
+            .AsSplitQuery()
             .Include(r => r.CreatedByUser)
             .Include(r => r.ReservedByUser)
             .Where(r => LiveStatuses.Contains(r.Status) && r.ExpiresAt > utcNow)

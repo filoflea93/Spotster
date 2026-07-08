@@ -215,15 +215,16 @@ function updateRequestsTabUnreadIndicator() {
 }
 
 function switchListingsSheet(sheet) {
+    if (sheet === 'state.parkings') sheet = 'parkings';
     state.activeSheet = sheet;
     $('#listings-tabs .nav-link').removeClass('active').attr('aria-selected', 'false');
     $(`#listings-tabs .nav-link[data-sheet="${sheet}"]`).addClass('active').attr('aria-selected', 'true');
     $('#requests-deal-filter').toggleClass('d-none', sheet !== 'requests');
-    if (sheet === 'state.parkings') {
+    if (sheet === 'parkings') {
         $('#parking-list').removeClass('d-none');
-        $('#request-list').addClass('d-none');
+        $('#request-list').addClass('d-none').empty();
     } else {
-        $('#parking-list').addClass('d-none');
+        $('#parking-list').addClass('d-none').empty();
         $('#request-list').removeClass('d-none');
         loadRequests();
     }
@@ -577,8 +578,10 @@ function renderRequests() {
     hub.clearRequestMapLayers();
 
     const listRequests = getFilteredRequestsForList();
-    const $list = $('#request-list').empty();
-    if (listRequests.length === 0) {
+    const showRequestList = state.activeSheet === 'requests';
+    const $list = showRequestList ? $('#request-list').empty() : null;
+
+    if (showRequestList && listRequests.length === 0) {
         const radiusLabel = hub.formatViewRadiusLabel(state.viewRadiusMeters);
         const msg = state.requestsDealFilter === 'all'
             ? t('List_NoRequests', radiusLabel)
@@ -629,65 +632,67 @@ function renderRequests() {
         });
     }
 
-    listRequests.forEach(r => {
-        const mine = isMyRequest(r);
-        const offZone = mine && hub.isOwnListingOffZone(r);
-        const requestId = getRequestId(r);
-        const timeLeft = hub.getTimeLeft(r.expiresAt);
-        const ownerId = r.createdByUserId || r.CreatedByUserId;
-        const ownerName = r.createdByUsername || r.CreatedByUsername || '';
-        const rewardHtml = r.rewardAmount
-            ? `<div class="request-reward"><i class="bi bi-cash-coin"></i> €${Number(r.rewardAmount).toFixed(2)}</div>`
-            : '';
-        const paymentsHtml = r.paymentMethods && r.paymentMethods.length
-            ? `<div class="request-payments">${r.paymentMethods.map(c => hub.escapeHtml(paymentMethodDisplayLabel(c))).join(' · ')}</div>`
-            : '';
-        const msgBadge = hasUnreadMessages(r)
-            ? `<span class="message-badge message-badge-unread">${getUnreadIncoming(r)}</span>`
-            : '';
-        const dotHtml = hasUnreadMessages(r)
-            ? '<div class="parking-dot parking-dot-notify"></div>'
-            : '<div class="parking-dot parking-dot-default"></div>';
-        const itemClass = isMyRequest(r) ? 'request-item request-item-mine' : 'request-item';
-        const title = hub.userProfileLink(ownerId, ownerName);
-        const reservedBadge = r.isReserved
-            ? `<span class="request-reserved-badge">${hub.escapeHtml(t('Request_InDealBadge'))}</span>`
-            : '';
-        const offZoneHtml = offZone ? ` · <i class="bi bi-pin-map"></i> ${t('List_MyOffZone')}` : '';
-        const threadCount = (state.ownerConversationCache[requestId] || []).length;
-        const metaLine = isMyRequest(r)
-            ? (threadCount > 1
-                ? `<i class="bi bi-people"></i> ${t('List_ConversationsCount', threadCount)}${offZoneHtml}`
-                : `<i class="bi bi-chat-dots"></i> ${t('List_MsgsReceived')}${offZoneHtml}`)
-            : `<i class="bi bi-bullseye"></i> ${r.radiusMeters}m · <i class="bi bi-chat-dots"></i> ${t('List_Contact')}`;
+    if (showRequestList) {
+        listRequests.forEach(r => {
+            const mine = isMyRequest(r);
+            const offZone = mine && hub.isOwnListingOffZone(r);
+            const requestId = getRequestId(r);
+            const timeLeft = hub.getTimeLeft(r.expiresAt);
+            const ownerId = r.createdByUserId || r.CreatedByUserId;
+            const ownerName = r.createdByUsername || r.CreatedByUsername || '';
+            const rewardHtml = r.rewardAmount
+                ? `<div class="request-reward"><i class="bi bi-cash-coin"></i> €${Number(r.rewardAmount).toFixed(2)}</div>`
+                : '';
+            const paymentsHtml = r.paymentMethods && r.paymentMethods.length
+                ? `<div class="request-payments">${r.paymentMethods.map(c => hub.escapeHtml(paymentMethodDisplayLabel(c))).join(' · ')}</div>`
+                : '';
+            const msgBadge = hasUnreadMessages(r)
+                ? `<span class="message-badge message-badge-unread">${getUnreadIncoming(r)}</span>`
+                : '';
+            const dotHtml = hasUnreadMessages(r)
+                ? '<div class="parking-dot parking-dot-notify"></div>'
+                : '<div class="parking-dot parking-dot-default"></div>';
+            const itemClass = isMyRequest(r) ? 'request-item request-item-mine' : 'request-item';
+            const title = hub.userProfileLink(ownerId, ownerName);
+            const reservedBadge = r.isReserved
+                ? `<span class="request-reserved-badge">${hub.escapeHtml(t('Request_InDealBadge'))}</span>`
+                : '';
+            const offZoneHtml = offZone ? ` · <i class="bi bi-pin-map"></i> ${t('List_MyOffZone')}` : '';
+            const threadCount = (state.ownerConversationCache[requestId] || []).length;
+            const metaLine = isMyRequest(r)
+                ? (threadCount > 1
+                    ? `<i class="bi bi-people"></i> ${t('List_ConversationsCount', threadCount)}${offZoneHtml}`
+                    : `<i class="bi bi-chat-dots"></i> ${t('List_MsgsReceived')}${offZoneHtml}`)
+                : `<i class="bi bi-bullseye"></i> ${r.radiusMeters}m · <i class="bi bi-chat-dots"></i> ${t('List_Contact')}`;
 
-        const { editBtn, renewBtn, deleteRequestBtn, locateBtn } = buildRequestActionButtonsHtml(r);
+            const { editBtn, renewBtn, deleteRequestBtn, locateBtn } = buildRequestActionButtonsHtml(r);
 
-        $list.append(`
-            <div class="parking-item ${itemClass}" data-id="${requestId}">
-                ${dotHtml}
-                <div class="parking-item-info">
-                    <div class="name">${title}${reservedBadge}${msgBadge}</div>
-                    <div class="meta text-truncate">${hub.escapeHtml(r.address)}</div>
-                    <div class="meta">${metaLine}</div>
-                    ${rewardHtml}
-                    ${paymentsHtml}
-                </div>
-                <div class="request-item-actions">
-                    <div class="item-action-buttons">
-                        ${locateBtn}
-                        ${editBtn}
-                        ${renewBtn}
-                        ${deleteRequestBtn}
+            $list.append(`
+                <div class="parking-item ${itemClass}" data-id="${requestId}">
+                    ${dotHtml}
+                    <div class="parking-item-info">
+                        <div class="name">${title}${reservedBadge}${msgBadge}</div>
+                        <div class="meta text-truncate">${hub.escapeHtml(r.address)}</div>
+                        <div class="meta">${metaLine}</div>
+                        ${rewardHtml}
+                        ${paymentsHtml}
                     </div>
-                    <span class="time-left" data-expires-at="${r.expiresAt}">${timeLeft}</span>
+                    <div class="request-item-actions">
+                        <div class="item-action-buttons">
+                            ${locateBtn}
+                            ${editBtn}
+                            ${renewBtn}
+                            ${deleteRequestBtn}
+                        </div>
+                        <span class="time-left" data-expires-at="${r.expiresAt}">${timeLeft}</span>
+                    </div>
                 </div>
-            </div>
-        `);
-    });
+            `);
+        });
+    }
 
-    if (listRequests.length > 0) {
-        $('.request-item, .request-item-mine').on('click', function (e) {
+    if (showRequestList && listRequests.length > 0) {
+        $('#request-list .request-item, #request-list .request-item-mine').on('click', function (e) {
             if ($(e.target).closest('.btn-delete-item, .btn-renew-request, .btn-edit-request, .btn-locate-item').length) {
                 return;
             }

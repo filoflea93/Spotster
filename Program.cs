@@ -201,13 +201,22 @@ if (redisSettings.IsConfigured)
 builder.Services.AddSingleton<Microsoft.AspNetCore.SignalR.IUserIdProvider, SignalRUserIdProvider>();
 
 builder.Services.AddCors(options =>
-
 {
+    var corsOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
 
     options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyHeader().AllowAnyMethod();
 
-        policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
-
+        if (corsOrigins is { Length: > 0 })
+        {
+            policy.WithOrigins(corsOrigins);
+        }
+        else
+        {
+            policy.AllowAnyOrigin();
+        }
+    });
 });
 
 
@@ -244,6 +253,16 @@ builder.Services.AddRateLimiter(options =>
             _ => new FixedWindowRateLimiterOptions
             {
                 PermitLimit = 120,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            }));
+
+    options.AddPolicy("stats", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            httpContext.Connection.RemoteIpAddress?.ToString() ?? "anonymous",
+            _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 30,
                 Window = TimeSpan.FromMinutes(1),
                 QueueLimit = 0
             }));

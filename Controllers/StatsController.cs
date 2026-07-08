@@ -1,6 +1,7 @@
 using Spotster.DTOs;
 using Spotster.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Spotster.Controllers;
 
@@ -19,6 +20,7 @@ public class StatsController : ControllerBase
 
     /// <summary>Aggregate counts for the last 24 hours and active listings.</summary>
     [HttpGet("system")]
+    [EnableRateLimiting("stats")]
     [ProducesResponseType(typeof(SystemStatsDto), StatusCodes.Status200OK)]
     public async Task<ActionResult<SystemStatsDto>> GetSystemStats()
     {

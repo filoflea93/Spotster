@@ -1,9 +1,9 @@
 using Spotster.Data;
+using Spotster.Domain;
 using Spotster.Domain.Geo;
 using Spotster.Entities;
 using Spotster.Infrastructure.Geo;
 using Microsoft.EntityFrameworkCore;
-using NetTopologySuite.Geometries;
 
 namespace Spotster.Repositories;
 
@@ -18,27 +18,28 @@ public class ParkingRepository : IParkingRepository
 
     public Task<ParkingReport?> GetByIdAsync(Guid id) =>
         _db.ParkingReports
+            .AsSplitQuery()
             .Include(p => p.CreatedByUser)
             .Include(p => p.Votes)
             .FirstOrDefaultAsync(p => p.Id == id);
 
     public Task<List<ParkingReport>> GetActiveAsync() =>
-        _db.ParkingReports
+        ActiveReportsQuery(DateTime.UtcNow)
             .AsNoTracking()
+            .AsSplitQuery()
             .Include(p => p.CreatedByUser)
             .Include(p => p.Votes)
-            .Where(p => p.Status == ParkingStatus.Active && p.ExpiresAt > DateTime.UtcNow)
             .OrderByDescending(p => p.LastUpdatedAt)
+            .Take(ListingConstants.MaxActiveListSize)
             .ToListAsync();
 
     public Task<List<ParkingReport>> GetActiveByUserAsync(Guid userId) =>
-        _db.ParkingReports
+        ActiveReportsQuery(DateTime.UtcNow)
             .AsNoTracking()
+            .AsSplitQuery()
             .Include(p => p.CreatedByUser)
             .Include(p => p.Votes)
-            .Where(p => p.CreatedByUserId == userId &&
-                        p.Status == ParkingStatus.Active &&
-                        p.ExpiresAt > DateTime.UtcNow)
+            .Where(p => p.CreatedByUserId == userId)
             .OrderByDescending(p => p.CreatedAt)
             .ToListAsync();
 
@@ -47,11 +48,11 @@ public class ParkingRepository : IParkingRepository
         var utcNow = DateTime.UtcNow;
         var searchPoint = GeoPointFactory.Create(latitude, longitude);
 
-        return await _db.ParkingReports
+        return await ActiveReportsQuery(utcNow)
             .AsNoTracking()
+            .AsSplitQuery()
             .Include(p => p.CreatedByUser)
             .Include(p => p.Votes)
-            .Where(p => p.Status == ParkingStatus.Active && p.ExpiresAt > utcNow)
             .Where(p => p.Location.Distance(searchPoint) <= radiusMeters)
             .OrderByDescending(p => p.ConfidenceScore)
             .Skip((page - 1) * pageSize)
@@ -64,15 +65,15 @@ public class ParkingRepository : IParkingRepository
         var utcNow = DateTime.UtcNow;
         var searchPoint = GeoPointFactory.Create(latitude, longitude);
 
-        return _db.ParkingReports
+        return ActiveReportsQuery(utcNow)
             .AsNoTracking()
-            .Where(p => p.Status == ParkingStatus.Active && p.ExpiresAt > utcNow)
             .Where(p => p.Location.Distance(searchPoint) <= radiusMeters)
             .CountAsync();
     }
 
     public Task<List<ParkingReport>> GetReadyToPurgeAsync(DateTime utcNow) =>
         _db.ParkingReports
+            .AsSplitQuery()
             .Include(p => p.CreatedByUser)
             .Include(p => p.Votes)
             .Where(p => p.ExpiresAt <= utcNow)
@@ -97,12 +98,30 @@ public class ParkingRepository : IParkingRepository
             p.CreatedAt >= since);
 
     public Task<ParkingReport?> FindActiveInZoneAsync(string zoneKey) =>
-        _db.ParkingReports
+        ActiveReportsQuery(DateTime.UtcNow)
+            .AsSplitQuery()
             .Include(p => p.CreatedByUser)
             .Include(p => p.Votes)
-            .Where(p => p.Status == ParkingStatus.Active && p.ExpiresAt > DateTime.UtcNow && p.VirtualZoneKey == zoneKey)
+            .Where(p => p.VirtualZoneKey == zoneKey)
             .OrderByDescending(p => p.LastUpdatedAt)
             .FirstOrDefaultAsync();
+
+    public Task<ParkingReport?> FindNearestActiveAsync(double latitude, double longitude, double radiusMeters)
+    {
+        var utcNow = DateTime.UtcNow;
+        var searchPoint = GeoPointFactory.Create(latitude, longitude);
+
+        return ActiveReportsQuery(utcNow)
+            .AsSplitQuery()
+            .Include(p => p.CreatedByUser)
+            .Include(p => p.Votes)
+            .Where(p => p.Location.Distance(searchPoint) <= radiusMeters)
+            .OrderBy(p => p.Location.Distance(searchPoint))
+            .FirstOrDefaultAsync();
+    }
+
+    private IQueryable<ParkingReport> ActiveReportsQuery(DateTime utcNow) =>
+        _db.ParkingReports.Where(p => p.Status == ParkingStatus.Active && p.ExpiresAt > utcNow);
 
     public Task<int> CountReportsTodayAsync()
     {

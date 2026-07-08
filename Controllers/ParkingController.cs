@@ -246,7 +246,7 @@ public class ParkingController : ControllerBase
         return Ok(result);
     }
 
-    /// <summary>List all active free-parking reports (global).</summary>
+    /// <summary>List active free-parking reports (global, capped). Prefer GET /nearby for map views.</summary>
     [AllowAnonymous]
     [DisableRateLimiting]
     [HttpGet("active")]

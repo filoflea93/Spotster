@@ -70,8 +70,8 @@ $('#btn-confirm-report').on('click', async function () {
         state.skipParkingReloadUntil = Date.now() + 30000;
         state.loadParkingsSeq++;
         hub.upsertParking(p, sentCoords);
-        if (state.activeSheet !== 'state.parkings') {
-            hub.switchListingsSheet('state.parkings');
+        if (state.activeSheet !== 'parkings') {
+            hub.switchListingsSheet('parkings');
         }
         state.reportCaptureLocation = null;
         modals.reportModal.hide();

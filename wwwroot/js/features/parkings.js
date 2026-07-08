@@ -78,10 +78,11 @@ function renderParkings() {
     state.markers = {};
 
     const visibleParkings = hub.getVisibleParkings();
-    const $list = $('#parking-list').empty();
-    if (visibleParkings.length === 0) {
+    const showParkingList = state.activeSheet === 'parkings';
+    const $list = showParkingList ? $('#parking-list').empty() : null;
+
+    if (showParkingList && visibleParkings.length === 0) {
         $list.html(`<div class="empty-list">${t('List_NoParkings', hub.formatViewRadiusLabel(state.viewRadiusMeters))}</div>`);
-        return;
     }
 
     visibleParkings.forEach(p => {
@@ -116,6 +117,8 @@ function renderParkings() {
             state.markers[reportId] = marker;
         }
 
+        if (!showParkingList) return;
+
         const timeLeft = getTimeLeft(p.expiresAt);
         const locateReportBtn = hub.buildLocateButtonHtml('report', reportId);
         const deleteReportBtn = isMine
@@ -145,7 +148,9 @@ function renderParkings() {
         `);
     });
 
-    $('.parking-item, .parking-item-mine').on('click', function (e) {
+    if (!showParkingList || visibleParkings.length === 0) return;
+
+    $('#parking-list .parking-item, #parking-list .parking-item-mine').on('click', function (e) {
         if ($(e.target).closest('.btn-delete-item, .btn-locate-item').length) {
             return;
         }
@@ -168,7 +173,7 @@ function renderParkings() {
         hub.focusMapOnParking(p, { openPopup: false, openDetail: true });
     });
 
-    $('.parking-item .btn-delete-item, .parking-item-mine .btn-delete-item').on('click', function (e) {
+    $('#parking-list .parking-item .btn-delete-item, #parking-list .parking-item-mine .btn-delete-item').on('click', function (e) {
         e.stopPropagation();
         hub.deleteListing($(this).data('type'), $(this).data('id'));
     });

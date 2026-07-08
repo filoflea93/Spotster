@@ -27,22 +27,8 @@ public class GeoService : IGeoService
         return (snapped.Latitude, snapped.Longitude, zoneKey);
     }
 
-    public async Task<ParkingReport?> FindAggregatableReportAsync(double latitude, double longitude)
-    {
-        var zoneKey = GeoHelper.GetVirtualZoneKey(latitude, longitude);
-        var inZone = await _parking.FindActiveInZoneAsync(zoneKey);
-        if (inZone is not null &&
-            GeoHelper.DistanceMeters(latitude, longitude, inZone.Latitude, inZone.Longitude) <= GeoConstants.ClusterRadiusMeters)
-        {
-            return inZone;
-        }
-
-        var active = await _parking.GetActiveAsync();
-        return active
-            .Where(p => GeoHelper.DistanceMeters(latitude, longitude, p.Latitude, p.Longitude) <= GeoConstants.ClusterRadiusMeters)
-            .OrderBy(p => GeoHelper.DistanceMeters(latitude, longitude, p.Latitude, p.Longitude))
-            .FirstOrDefault();
-    }
+    public Task<ParkingReport?> FindAggregatableReportAsync(double latitude, double longitude) =>
+        _parking.FindNearestActiveAsync(latitude, longitude, GeoConstants.ClusterRadiusMeters);
 
     public double CalculateConfidence(ParkingReport report, int validVotes, int invalidVotes)
     {
